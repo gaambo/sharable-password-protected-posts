@@ -56,6 +56,12 @@ function addEditorAssets()
 }
 add_action('enqueue_block_editor_assets', __NAMESPACE__ . '\addEditorAssets');
 
+function loadLanguages()
+{
+    load_plugin_textdomain('sppp', false, plugin_dir_path(__FILE__) . 'languages');
+}
+add_action('init', __NAMESPACE__ . '\loadLanguages');
+
 /**
  * Registers the two meta fields
  *

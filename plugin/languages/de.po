@@ -1,0 +1,50 @@
+# Copyright (C) 2022 gaambo
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sharable Password Protected Posts 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sharable-password-"
+"protected-posts\n"
+"POT-Creation-Date: 2022-10-28T13:58:01+00:00\n"
+"PO-Revision-Date: 2022-10-28 15:59+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2\n"
+"X-Domain: sharable-password-protected-posts\n"
+
+#. Plugin Name of the plugin
+msgid "Sharable Password Protected Posts"
+msgstr "Passwortgeschützte Posts teilen"
+
+#. Description of the plugin
+msgid "Share password protected posts via secret URLs"
+msgstr "Teile passwortgeschützte Beiträge mit geheimen URLs"
+
+#. Author of the plugin
+msgid "gaambo"
+msgstr ""
+
+#: src/PostStatusSettings/CopyUrl.js:63
+msgid "Share this URL"
+msgstr "Teile diese URL"
+
+#: src/PostStatusSettings/CopyUrl.js:70
+msgid "Secret URL:"
+msgstr "Geheime URL:"
+
+#: src/PostStatusSettings/CopyUrl.js:75
+msgid "Copied!"
+msgstr "Kopiert!"
+
+#: src/PostStatusSettings/CopyUrl.js:75
+msgid "Copy"
+msgstr "Kopieren"
+
+#: src/PostStatusSettings/index.js:41
+msgid "Share post via secret URL"
+msgstr "Beitrag mit geheimer URL teilen"
