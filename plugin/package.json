@@ -1,0 +1,25 @@
+{
+    "name": "sharable-password-protected-posts",
+    "version": "0.1.0",
+    "description": "Share password protected posts via secret URLs",
+    "author": "gaambo",
+    "license": "GPL-2.0-or-later",
+    "main": "build/index.js",
+    "scripts": {
+        "build": "wp-scripts build",
+        "packages-update": "wp-scripts packages-update",
+        "plugin-zip": "wp-scripts plugin-zip",
+        "start": "wp-scripts start"
+    },
+    "devDependencies": {
+        "@wordpress/components": "^21.3.0",
+        "@wordpress/edit-post": "^6.17.0",
+        "@wordpress/editor": "^12.19.0",
+        "@wordpress/plugins": "^4.18.0",
+        "@wordpress/scripts": "^24.4.0"
+    },
+    "dependencies": {
+        "@wordpress/data": "^7.4.0",
+        "@wordpress/i18n": "^4.20.0"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "wp-sharable-password-protected-posts",
+    "version": "0.1.0",
+    "description": "Share password protected posts via secret URLs",
+    "scripts": {
+        "start": "wp-env start",
+        "develop": "wp-env start --xdebug && wp-env run wordpress bash -c \"echo 'xdebug.client_host=host.docker.internal' >> /usr/local/etc/php/php.ini && /etc/init.d/apache2 restart\""
+    },
+    "author": "Fabian Todt",
+    "license": "GPL-2.0-or-later"
+}

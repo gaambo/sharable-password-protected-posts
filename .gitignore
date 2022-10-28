@@ -1,0 +1,3 @@
+/wp/*
+!/wp/.gitkeep
+node_modules

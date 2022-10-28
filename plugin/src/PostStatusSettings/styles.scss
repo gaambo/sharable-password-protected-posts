@@ -1,0 +1,32 @@
+.components-panel__row.sppp {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .sppp__link-copy {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 16px 0; // $grid-unit-20
+        .components-base-control__field {
+            margin-bottom: 0;
+        }
+
+        .sppp__link-field {
+            flex: 1;
+        }
+
+        input[readonly] {
+            padding: 10px;
+            background: #ddd; // $gray-300
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sppp__copy-button {
+            flex-shrink: 0;
+            margin-left: 8px; // margin left for copy button
+
+            // match copy button height to the link field height
+            height: 38px;
+        }
+    }
+}
