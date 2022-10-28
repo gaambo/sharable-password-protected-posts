@@ -1,5 +1,5 @@
 import { PluginPostStatusInfo } from "@wordpress/edit-post";
-import { PanelRow, CheckboxControl } from "@wordpress/components";
+import { CheckboxControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { store as editorStore } from "@wordpress/editor";

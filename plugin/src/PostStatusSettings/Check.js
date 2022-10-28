@@ -1,7 +1,6 @@
 import { useSelect } from "@wordpress/data";
 import { store as coreStore } from "@wordpress/core-data";
 import { store as editorStore } from "@wordpress/editor";
-import { store as blockEditorStore } from "@wordpress/block-editor";
 
 /**
  * Taken from WordPress PostURLCheck (private)

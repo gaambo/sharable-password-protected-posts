@@ -59,11 +59,12 @@ class CopyUrl extends Component {
         });
         return (
             <div>
-                <label htmlFor="public-post-preview-url" className="screen-reader-text">
-                    {__("Share this URL", "public-post-preview")}
+                <label htmlFor="sppp-link-field" className="screen-reader-text">
+                    {__("Share this URL", "sppp")}
                 </label>
                 <Flex className="sppp__link-copy">
                     <TextControl
+                        id="sppp-link-field"
                         className="sppp__link-field"
                         readOnly
                         label={__("Secret URL:", "sppp")}
@@ -71,7 +72,7 @@ class CopyUrl extends Component {
                         onFocus={this.onSelectInput}
                     />
                     <CopyButton text={url} onCopy={this.onCopy} className="sppp__copy-button">
-                        {this.state.showCopyConfirmation ? __("Copied!") : __("Copy")}
+                        {this.state.showCopyConfirmation ? __("Copied!", "sppp") : __("Copy", "sppp")}
                     </CopyButton>
                 </Flex>
             </div>
