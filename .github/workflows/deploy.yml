@@ -1,4 +1,5 @@
 name: Deploy to WordPress.org
+description: Deploys a new plugin release/version to the WordPress.org plugin repo
 
 on:
     release:
@@ -8,18 +9,44 @@ jobs:
     new-release:
         name: New release
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./plugin
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: 16
+
+            - name: Get npm cache directory
+              id: npm-cache
+              run: |
+                  echo "::set-output name=dir::$(npm config get cache)"
+            - uses: actions/cache@v2
+              with:
+                  path: ${{ steps.npm-cache.outputs.dir }}
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+            - name: Install Node.js dependencies
+              run: npm ci
+
+            - name: Build JS/CSS assets
+              run: |
+                  npm run build
 
             - name: WordPress Plugin Deploy
               id: deploy
               uses: 10up/action-wordpress-plugin-deploy@1.5.0
               with:
-                  generate-zip: true
+                  generate-zip: false
               env:
                   SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
                   SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+                  BUILD_DIR: ./plugin
 
             - name: Upload release asset
               uses: actions/upload-release-asset@v1

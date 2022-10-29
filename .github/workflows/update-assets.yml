@@ -1,4 +1,5 @@
 name: Plugin asset/readme update
+description: Update WordPress.org plugin repo assets
 
 on:
     workflow_dispatch:

@@ -1,12 +1,16 @@
-name: Build
+name: Build ZIP
+description: Builds a installable plugin ZIP
 
 on:
+    workflow_dispatch:
     pull_request:
 
 jobs:
     build:
         runs-on: ubuntu-latest
-
+        defaults:
+            run:
+                working-directory: ./plugin
         steps:
             - name: Check out Git repository
               uses: actions/checkout@v2
@@ -32,13 +36,15 @@ jobs:
             - name: Install Node.js dependencies
               run: npm ci
 
-            - name: Run build command
+            - name: Build JS/CSS assets
               run: |
                   npm run build
-            - name: Commit updated assets files
-              uses: EndBug/add-and-commit@v7
+
+            - name: Run zip command
+              run: |
+                  npm run plugin-zip
+            - name: Upload zip artifact
+              uses: actions/upload-artifact@v3
               with:
-                  author_name: github-actions[bot]
-                  author_email: github-actions[bot]@users.noreply.github.com
-                  message: "[auto] Update assets"
-                  add: "js"
+                  name: plugin
+                  path: sharable-password-protected-posts.zip
