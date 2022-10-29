@@ -128,22 +128,40 @@ add_action('init', __NAMESPACE__ . '\registerMeta');
  * Sets the post elements status to 'publish' if it can be viewed with the key
  * this will let the rest of WP_Query thandle the post as normal
  *
+ * This only filters the main query's WP_Post instance, not all other objects
+ * that may be get via get_post; but using get_queried_object will work
+ *
  * @param \WP_Post[] $posts
  * @param \WP_Query $query
  * @return void
  */
 function filterPostsQuery($posts, $query)
 {
+    // only handle the main query
     if (!$query->is_main_query()) {
         return $posts;
     }
+
+    // only handle single views, don't handle not-found posts
+    if (count($posts) !== 1) {
+        return $posts;
+    }
+
+    $mainPost = $posts[0];
+    $enabledPostTypes = getEnabledPostTypes();
+
+    // if the main (single) post has a not-enabled post type, bail early
+    if (!in_array($mainPost->post_type, $enabledPostTypes)) {
+        return $posts;
+    }
+
     // if a post type was specifically queried, check if only allowed/enabled post types where queried
     $postTypes = $query->get('post_type');
     if (!empty($postTypes) && (is_array($postTypes) || is_string($postTypes))) {
         // if a post type is queried (maybe one of multiple), that is not enabled bail early
         if (
             !empty($postTypes) &&
-            !empty(array_diff((array)$postTypes, getEnabledPostTypes()))
+            !empty(array_diff((array)$postTypes, $enabledPostTypes))
         ) {
             return $posts;
         }
@@ -160,7 +178,7 @@ function filterPostsQuery($posts, $query)
 add_filter('posts_results', __NAMESPACE__ . '\filterPostsQuery', 10, 2);
 
 /**
- * Filters whether a post password form is required - for PASSWORD posts
+ * Filters whether a post password form is required - for PASSWORD protected posts
  *
  * @param bool $required
  * @param \WP_Post $post
@@ -168,6 +186,13 @@ add_filter('posts_results', __NAMESPACE__ . '\filterPostsQuery', 10, 2);
  */
 function filterPostPasswordRequired($required, $post)
 {
+    $enabledPostTypes = getEnabledPostTypes();
+
+    // if the post has a not-enabled post type, bail early
+    if (!in_array($post->post_type, $enabledPostTypes)) {
+        return $required;
+    }
+
     if (canPostBeViewedWithKey($post)) {
         return false;
     }
