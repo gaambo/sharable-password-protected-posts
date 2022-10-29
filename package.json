@@ -5,7 +5,7 @@
     "scripts": {
         "start": "wp-env start",
         "stop": "wp-env stop",
-        "i18n": " wp-env run cli 'wp i18n make-pot wp-content/plugins/sharable-password-protected-posts wp-content/plugins/sharable-password-protected-posts/languages/sppp.pot --exclude=\"build\" --domain=sppp --include=\"src\"'",
+        "i18n": " wp-env run cli 'wp i18n make-pot wp-content/plugins/sharable-password-protected-posts wp-content/plugins/sharable-password-protected-posts/languages/sharable-password-protected-posts.pot --exclude=\"build\" --domain=sharable-password-protected-posts'",
         "develop": "wp-env start --xdebug && wp-env run wordpress bash -c \"echo 'xdebug.client_host=host.docker.internal' >> /usr/local/etc/php/php.ini && /etc/init.d/apache2 restart\""
     },
     "author": "Fabian Todt",

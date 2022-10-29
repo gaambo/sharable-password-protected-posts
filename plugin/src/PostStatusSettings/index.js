@@ -38,7 +38,7 @@ const PostStatusSettings = () => {
             <Check>
                 <div className="sppp__checkbox">
                     <CheckboxControl
-                        label={__("Share post via secret URL", "sppp")}
+                        label={__("Share post via secret URL", "sharable-password-protected-posts")}
                         checked={sharingEnabled}
                         onChange={onChangeEnabled}
                     />

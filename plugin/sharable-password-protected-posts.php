@@ -9,7 +9,7 @@
  * Author:            Fabian Todt
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       sppp
+ * Text Domain:       sharable-password-protected-posts
  * Domain Path:       /languages
  *
  * @package           SPPP
@@ -58,7 +58,11 @@ add_action('enqueue_block_editor_assets', __NAMESPACE__ . '\addEditorAssets');
 
 function loadLanguages()
 {
-    load_plugin_textdomain('sppp', false, dirname(plugin_dir_path(__FILE__)) . 'languages');
+    load_plugin_textdomain(
+        'sharable-password-protected-posts',
+        false,
+        dirname(plugin_dir_path(__FILE__)) . 'languages'
+    );
 }
 add_action('init', __NAMESPACE__ . '\loadLanguages');
 
