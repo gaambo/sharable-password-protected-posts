@@ -1,6 +1,4 @@
-name: Plugin asset/readme update
-description: Update WordPress.org plugin repo assets
-
+name: Plugin WordPress.org asset/readme update
 on:
     workflow_dispatch:
     push:

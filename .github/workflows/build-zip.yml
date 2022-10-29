@@ -1,5 +1,4 @@
-name: Build ZIP
-description: Builds a installable plugin ZIP
+name: Build installable plugin ZIP
 
 on:
     workflow_dispatch:

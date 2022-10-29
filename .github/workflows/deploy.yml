@@ -1,5 +1,4 @@
 name: Deploy to WordPress.org
-description: Deploys a new plugin release/version to the WordPress.org plugin repo
 
 on:
     release:
