@@ -133,7 +133,7 @@ function filterPostsQuery($posts, $query)
     if (!$query->is_main_query()) {
         return $posts;
     }
-    // check if only allowed/enabled post types where queried
+    // if a post type was specifically queried, check if only allowed/enabled post types where queried
     $postTypes = $query->get('post_type');
     if (!empty($postTypes) && (is_array($postTypes) || is_string($postTypes))) {
         // if a post type is queried (maybe one of multiple), that is not enabled bail early
@@ -200,10 +200,14 @@ add_filter('private_title_format', __NAMESPACE__ . '\filterPostTitlePrefix', 10,
 function canPostBeViewedWithKey($post, $key = null)
 {
     if (!$key) {
-        if (!isset($_GET['_sppp_key'])) {
+        if (empty($_GET['_sppp_key'])) {
             return false;
         }
-        $key = $_GET['_sppp_key'];
+        $key = sanitize_text_field($_GET['_sppp_key']);
+    }
+
+    if (empty($key)) {
+        return false;
     }
 
     if (empty($post->post_password) && $post->post_status !== 'private') {
@@ -227,6 +231,10 @@ function canPostBeViewedWithKey($post, $key = null)
  */
 function isKeyValid($userKey, $post)
 {
+    if (empty($userKey)) {
+        return false;
+    }
+
     $postId = is_a($post, 'WP_Post') ? $post->ID : $post;
 
     $isEnabled = get_post_meta($postId, '_sppp_enabled', true);
@@ -235,7 +243,7 @@ function isKeyValid($userKey, $post)
     }
     $savedKey = get_post_meta($postId, '_sppp_key', true);
 
-    if (!$savedKey) {
+    if (empty($savedKey)) {
         return false;
     }
 
