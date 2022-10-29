@@ -43,4 +43,4 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                   name: plugin
-                  path: ./sharable-password-protected-posts.zip
+                  path: ./plugin/sharable-password-protected-posts.zip
