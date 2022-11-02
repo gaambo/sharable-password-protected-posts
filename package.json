@@ -1,13 +1,28 @@
 {
-    "name": "wp-sharable-password-protected-posts",
+    "name": "sharable-password-protected-posts",
     "version": "0.1.0",
     "description": "Share password protected posts via secret URLs",
+    "author": "gaambo",
+    "license": "GPL-2.0-or-later",
+    "main": "build/index.js",
     "scripts": {
-        "start": "wp-env start",
-        "stop": "wp-env stop",
-        "i18n": " wp-env run cli 'wp i18n make-pot wp-content/plugins/sharable-password-protected-posts wp-content/plugins/sharable-password-protected-posts/languages/sharable-password-protected-posts.pot --exclude=\"build\" --domain=sharable-password-protected-posts'",
-        "develop": "wp-env start --xdebug && wp-env run wordpress bash -c \"echo 'xdebug.client_host=host.docker.internal' >> /usr/local/etc/php/php.ini && /etc/init.d/apache2 restart\""
+        "build": "wp-scripts build",
+        "packages-update": "wp-scripts packages-update",
+        "plugin-zip": "wp-scripts plugin-zip",
+        "start": "wp-scripts start",
+        "dev:start": "wp-env start",
+        "dev:stop": "wp-env stop",
+        "dev:i18n": " wp-env run cli 'wp i18n make-pot wp-content/plugins/sharable-password-protected-posts wp-content/plugins/sharable-password-protected-posts/languages/sharable-password-protected-posts.pot --exclude=\"build\" --domain=sharable-password-protected-posts'"
     },
-    "author": "Fabian Todt",
-    "license": "GPL-2.0-or-later"
+    "devDependencies": {
+        "@wordpress/components": "^21.3.0",
+        "@wordpress/edit-post": "^6.17.0",
+        "@wordpress/editor": "^12.19.0",
+        "@wordpress/plugins": "^4.18.0",
+        "@wordpress/scripts": "^24.4.0"
+    },
+    "dependencies": {
+        "@wordpress/data": "^7.4.0",
+        "@wordpress/i18n": "^4.20.0"
+    }
 }

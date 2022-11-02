@@ -1,7 +1,7 @@
 {
     "phpVersion": "7.4",
-    "core": "./wp",
+    "core": "WordPress/WordPress#6.1",
     "mappings": {
-        "wp-content/plugins/sharable-password-protected-posts": "./plugin"
+        "wp-content/plugins/sharable-password-protected-posts": "./"
     }
 }

@@ -10,7 +10,7 @@
       "request": "launch",
       "port": 9003,
       "pathMappings": {
-        "/var/www/html/wp-content/plugins/sharable-password-protected-posts": "${workspaceFolder}/plugin"
+        "/var/www/html/wp-content/plugins/sharable-password-protected-posts": "${workspaceFolder}"
       }
     }
   ]

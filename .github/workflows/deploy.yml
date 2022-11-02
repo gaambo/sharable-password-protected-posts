@@ -8,9 +8,6 @@ jobs:
     new-release:
         name: New release
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ./plugin
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
@@ -45,7 +42,6 @@ jobs:
               env:
                   SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
                   SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-                  BUILD_DIR: ./plugin
                   SLUG: sharable-password-protected-posts
 
             - name: Upload release asset
