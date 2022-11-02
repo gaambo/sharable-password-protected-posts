@@ -46,6 +46,7 @@ jobs:
                   SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
                   SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
                   BUILD_DIR: ./plugin
+                  SLUG: sharable-password-protected-posts
 
             - name: Upload release asset
               uses: actions/upload-release-asset@v1
