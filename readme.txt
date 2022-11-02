@@ -77,5 +77,10 @@ Yes, by default all public post types are enabled. You can filter them with the 
 
 == Changelog ==
 
-= 0.1.0 =
-* Release
+= 1.0.1 (2022-11-02): =
+* Fix source code repo and deployment to WordPress.org plugin repo
+
+= 1.0.0 (2022-11-02): =
+* The first public release of the plugin 🥳
+
+For more see [CHANGELOG.md](https://github.com/gaambo/sharable-password-protected-posts/blob/main/CHANGELOG.md).
