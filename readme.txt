@@ -1,6 +1,6 @@
 === Sharable Password Protected Posts ===
 Contributors:      gaambo
-Tags:              block
+Tags:              password protected, secret links, share private
 Requires at least: 6.0
 Tested up to:      6.1
 Stable tag:        1.0.2
