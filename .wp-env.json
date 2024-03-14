@@ -1,6 +1,6 @@
 {
   "phpVersion": "8.1",
-  "core": "WordPress/WordPress#6.4-branch",
+  "core": "WordPress/WordPress#6.5-branch",
   "mappings": {
     "wp-content/plugins/sharable-password-protected-posts": "./",
     "wp-content/debug.log": "./debug.log"
