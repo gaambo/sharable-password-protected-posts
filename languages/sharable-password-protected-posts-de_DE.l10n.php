@@ -1,0 +1,2 @@
+<?php
+return ['domain'=>'sharable-password-protected-posts','plural-forms'=>'nplurals=2; plural=(n != 1);','messages'=>['Sharable Password Protected Posts'=>'Passwortgeschützte Posts teilen','Share password protected posts via secret URLs'=>'Teile passwortgeschützte Beiträge mit geheimen URLs','Fabian Todt'=>'','Share this URL'=>'Teile diese URL','Secret URL:'=>'Geheime URL:','Copied!'=>'Kopiert!','Copy'=>'Kopieren','Share post via secret URL'=>'Beitrag mit geheimer URL teilen'],'language'=>'de_DE','x-generator'=>'Poedit 3.2'];

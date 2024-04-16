@@ -1,4 +1,22 @@
 {
+  "name": "sharable-password-protected-posts",
+  "version": "1.0.2",
+  "description": "Share password protected posts via secret URLs",
+  "author": "gaambo",
+  "license": "GPL-2.0-or-later",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "start": "wp-scripts start",
+    "env:start": "wp-env start",
+    "env:start:debug": "wp-env start --xdebug",
+    "env:stop": "wp-env stop",
+    "i18n": "npm run i18n:pot && npm run i18n:php",
+    "i18n:pot": "wp-env run cli wp i18n make-pot wp-content/plugins/sharable-password-protected-posts wp-content/plugins/sharable-password-protected-posts/languages/good-slider.pot --exclude=\"build\" --domain=good-slider",
+    "i18n:php": "wp-env run cli wp i18n make-php wp-content/plugins/sharable-password-protected-posts/languages"
+  },
   "devDependencies": {
     "@wordpress/env": "^9.7.0",
     "@wordpress/scripts": "^27.6.0"
