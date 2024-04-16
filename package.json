@@ -1,29 +1,14 @@
 {
-    "name": "sharable-password-protected-posts",
-    "version": "1.0.2",
-    "description": "Share password protected posts via secret URLs",
-    "author": "gaambo",
-    "license": "GPL-2.0-or-later",
-    "main": "build/index.js",
-    "scripts": {
-        "build": "wp-scripts build",
-        "packages-update": "wp-scripts packages-update",
-        "plugin-zip": "wp-scripts plugin-zip",
-        "start": "wp-scripts start",
-        "dev:start": "wp-env start",
-        "dev:stop": "wp-env stop",
-        "dev:i18n": " wp-env run cli 'wp i18n make-pot wp-content/plugins/sharable-password-protected-posts wp-content/plugins/sharable-password-protected-posts/languages/sharable-password-protected-posts.pot --exclude=\"build\" --domain=sharable-password-protected-posts'"
-    },
-    "devDependencies": {
-        "@wordpress/env": "^8.10.0",
-        "@wordpress/scripts": "^26.15.0"
-    },
-    "dependencies": {
-        "@wordpress/components": "^25.10.0",
-        "@wordpress/data": "^9.14.0",
-        "@wordpress/edit-post": "^7.21.0",
-        "@wordpress/editor": "^13.21.0",
-        "@wordpress/i18n": "^4.44.0",
-        "@wordpress/plugins": "^6.12.0"
-    }
+  "devDependencies": {
+    "@wordpress/env": "^9.7.0",
+    "@wordpress/scripts": "^27.6.0"
+  },
+  "dependencies": {
+    "@wordpress/components": "^27.3.0",
+    "@wordpress/data": "^9.25.0",
+    "@wordpress/edit-post": "^7.32.0",
+    "@wordpress/editor": "^13.32.0",
+    "@wordpress/i18n": "^4.55.0",
+    "@wordpress/plugins": "^6.23.0"
+  }
 }
