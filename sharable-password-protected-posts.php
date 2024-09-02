@@ -39,10 +39,18 @@ function addEditorAssets()
         'newKey' => generateKey(),
     ];
 
+    $scriptDependencies = $assetsConfig['dependencies'];
+    // For WordPress < 6.6 the editor script depends on wp-edit-post (because of PluginPostStatusInfo)
+    // but the script is built against 6.6, therefore only requiring the wp-editor script.
+    require ABSPATH . WPINC . '/version.php';
+    if(version_compare($wp_version, '6.6', '<')) {
+        $scriptDependencies[] = 'wp-edit-post';
+    }
+
     wp_enqueue_script(
         'sppp',
         plugin_dir_url(__FILE__) . 'build/index.js',
-        $assetsConfig['dependencies'],
+        $scriptDependencies,
         $assetsConfig['version']
     );
 
