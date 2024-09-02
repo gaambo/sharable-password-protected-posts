@@ -2,8 +2,8 @@
 Contributors:      gaambo
 Tags:              password protected, secret links, share private
 Requires at least: 6.0
-Tested up to:      6.5
-Stable tag:        1.0.2
+Tested up to:      6.6
+Stable tag:        1.1.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,9 @@ The editor has to have the `publish_posts` capability.
 Yes, by default all public post types are enabled. You can filter them with the `sppp/postTypes` filter.
 
 == Changelog ==
+
+= 1.1.0 (2024-09-02): =
+* Add WordPress 6.6 compatibility
 
 = 1.0.2 (2022-11-02): =
 * Update plugin file versions and author uri

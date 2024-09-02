@@ -1,6 +1,6 @@
 {
   "name": "sharable-password-protected-posts",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Share password protected posts via secret URLs",
   "author": "gaambo",
   "license": "GPL-2.0-or-later",
