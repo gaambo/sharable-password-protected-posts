@@ -18,15 +18,15 @@
     "i18n:php": "wp-env run cli wp i18n make-php wp-content/plugins/sharable-password-protected-posts/languages"
   },
   "devDependencies": {
-    "@wordpress/env": "^9.7.0",
-    "@wordpress/scripts": "^27.6.0"
+    "@wordpress/env": "^10.14.0",
+    "@wordpress/scripts": "^30.7.0"
   },
   "dependencies": {
-    "@wordpress/components": "^27.3.0",
-    "@wordpress/data": "^9.25.0",
-    "@wordpress/edit-post": "^7.32.0",
-    "@wordpress/editor": "^13.32.0",
-    "@wordpress/i18n": "^4.55.0",
-    "@wordpress/plugins": "^6.23.0"
+    "@wordpress/components": "^29.0.0",
+    "@wordpress/data": "^10.14.0",
+    "@wordpress/edit-post": "^8.14.0",
+    "@wordpress/editor": "^14.14.0",
+    "@wordpress/i18n": "^5.14.0",
+    "@wordpress/plugins": "^7.14.0"
   }
 }
