@@ -13,6 +13,7 @@
     "env:start": "wp-env start",
     "env:start:debug": "wp-env start --xdebug",
     "env:stop": "wp-env stop",
+    "format:js": "wp-scripts format ./src && wp-scripts format ./tests/e2e",
     "test:e2e": "wp-scripts test-playwright --config tests/e2e/playwright.config.js",
     "test:e2e:debug": "wp-scripts --inspect-brk test-e2e --puppeteer-devtools --config tests/e2e/playwright.config.js",
     "i18n": "npm run i18n:pot && npm run i18n:php",
@@ -23,6 +24,7 @@
     "@playwright/test": "^1.49.1",
     "@wordpress/e2e-test-utils-playwright": "^1.14.0",
     "@wordpress/env": "^10.14.0",
+    "@wordpress/prettier-config": "^4.14.0",
     "@wordpress/scripts": "^30.7.0",
     "url": "^0.11.4"
   },
@@ -33,5 +35,6 @@
     "@wordpress/editor": "^14.14.0",
     "@wordpress/i18n": "^5.14.0",
     "@wordpress/plugins": "^7.14.0"
-  }
+  },
+  "prettier": "@wordpress/prettier-config"
 }
