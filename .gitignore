@@ -11,3 +11,7 @@ node_modules/
 !/wp/.gitkeep
 node_modules
 .vscode
+
+# Tests
+/tests/e2e/artifacts
+/artifacts

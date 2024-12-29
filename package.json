@@ -13,13 +13,18 @@
     "env:start": "wp-env start",
     "env:start:debug": "wp-env start --xdebug",
     "env:stop": "wp-env stop",
+    "test:e2e": "wp-scripts test-playwright --config tests/e2e/playwright.config.js",
+    "test:e2e:debug": "wp-scripts --inspect-brk test-e2e --puppeteer-devtools --config tests/e2e/playwright.config.js",
     "i18n": "npm run i18n:pot && npm run i18n:php",
     "i18n:pot": "wp-env run cli wp i18n make-pot wp-content/plugins/sharable-password-protected-posts wp-content/plugins/sharable-password-protected-posts/languages/good-slider.pot --exclude=\"build\" --domain=good-slider",
     "i18n:php": "wp-env run cli wp i18n make-php wp-content/plugins/sharable-password-protected-posts/languages"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@wordpress/e2e-test-utils-playwright": "^1.14.0",
     "@wordpress/env": "^10.14.0",
-    "@wordpress/scripts": "^30.7.0"
+    "@wordpress/scripts": "^30.7.0",
+    "url": "^0.11.4"
   },
   "dependencies": {
     "@wordpress/components": "^29.0.0",
