@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { test, expect } from '@wordpress/e2e-test-utils-playwright';
+import { expect, test } from '@wordpress/e2e-test-utils-playwright';
 
 async function savePrivatePost( editor, page ) {
 	// Enter a title for this post - required for publishing.
@@ -23,6 +23,11 @@ async function logout( page ) {
 }
 
 test.describe( 'Frontend viewing post', () => {
+	test.beforeEach( async ( { requestUtils } ) => {
+		// login again.
+		await requestUtils.setupRest();
+	} );
+
 	test( `can view private post by visiting secret URL`, async ( {
 		page,
 		admin,
@@ -47,9 +52,6 @@ test.describe( 'Frontend viewing post', () => {
 
 		const response = await page.goto( link );
 		expect( response.status() ).not.toBe( 404 );
-
-		// login again.
-		await requestUtils.setupRest();
 	} );
 
 	test( `cannot view private post being logged out`, async ( {
@@ -76,15 +78,13 @@ test.describe( 'Frontend viewing post', () => {
 
 		const response = await page.goto( link );
 		expect( response.status() ).toBe( 404 );
-
-		// login again.
-		await requestUtils.setupRest();
 	} );
 
 	test( `can view private post by being logged in`, async ( {
 		page,
 		admin,
 		editor,
+		requestUtils,
 	} ) => {
 		await admin.createNewPost();
 
@@ -95,14 +95,7 @@ test.describe( 'Frontend viewing post', () => {
 
 		await page.getByLabel( 'Share post via secret URL' ).first().click();
 
-		// Enter a title for this post.
-		await editor.canvas
-			.locator( 'role=textbox[name="Add title"i]' )
-			.fill( 'Title' );
-		await page
-			.getByRole( 'region', { name: 'Editor top bar' } )
-			.getByRole( 'button', { name: 'Save', exact: true } )
-			.click();
+		await savePrivatePost( editor, page );
 
 		const link = await page.evaluate( () => {
 			return window.wp.data.select( 'core/editor' ).getPermalink();

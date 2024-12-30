@@ -10,15 +10,20 @@
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
     "start": "wp-scripts start",
+    "wp-env": "wp-env",
     "env:start": "wp-env start",
     "env:start:debug": "wp-env start --xdebug",
     "env:stop": "wp-env stop",
+    "env:cli": "wp-env run cli --env-cwd=wp-content/plugins/sharable-password-protected-posts",
+    "format": "npm run format:js && npm run format:php",
     "format:js": "wp-scripts format ./src && wp-scripts format ./tests/e2e",
+    "format:php": "npm run env:cli composer run-script phpcbf",
+    "test": "npm run test:e2e",
     "test:e2e": "wp-scripts test-playwright --config tests/e2e/playwright.config.js",
     "test:e2e:debug": "wp-scripts --inspect-brk test-e2e --puppeteer-devtools --config tests/e2e/playwright.config.js",
     "i18n": "npm run i18n:pot && npm run i18n:php",
-    "i18n:pot": "wp-env run cli wp i18n make-pot wp-content/plugins/sharable-password-protected-posts wp-content/plugins/sharable-password-protected-posts/languages/good-slider.pot --exclude=\"build\" --domain=good-slider",
-    "i18n:php": "wp-env run cli wp i18n make-php wp-content/plugins/sharable-password-protected-posts/languages"
+    "i18n:pot": "npm run env:cli wp i18n make-pot ./ ./languages/sharable-password-protected-posts.pot --exclude=\"build\" --domain=sharable-password-protected-posts",
+    "i18n:php": "npm run env:cli wp i18n make-php ./languages"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",

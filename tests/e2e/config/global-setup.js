@@ -27,6 +27,7 @@ async function globalSetup( config ) {
 	// Reset the test environment before running the tests.
 	await Promise.all( [
 		requestUtils.activatePlugin( 'sharable-password-protected-posts' ),
+		requestUtils.deleteAllPosts(),
 	] );
 
 	await requestContext.dispose();

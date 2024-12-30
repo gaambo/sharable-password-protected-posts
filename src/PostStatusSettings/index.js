@@ -1,9 +1,11 @@
 import { CheckboxControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
-import CopyUrl from './CopyUrl';
+import { __ } from '@wordpress/i18n';
 import Check from './Check';
+import CONSTANTS from './constants';
+import CopyUrl from './CopyUrl';
+import './styles.scss';
 
 // Support < WP 6.6 and > WP 6.6
 // See https://make.wordpress.org/core/2024/06/18/editor-unified-extensibility-apis-in-6-6/
@@ -12,10 +14,7 @@ const PluginPostStatusInfo =
 	wp.editPost?.PluginPostStatusInfo ??
 	wp.editSite?.PluginPostStatusInfo;
 
-import CONSTANTS from './constants';
 const { META_ENABLED, META_KEY } = CONSTANTS;
-
-import './styles.scss';
 
 const PostStatusSettings = () => {
 	const { sharingEnabled, existingKey } = useSelect( ( select ) => {
@@ -25,7 +24,7 @@ const PostStatusSettings = () => {
 			sharingEnabled: meta?.[ META_ENABLED ] || null,
 			existingKey: meta?.[ META_KEY ] || null,
 		};
-	} );
+	}, [] );
 	const { editPost } = useDispatch( editorStore );
 	const onChangeEnabled = ( value ) => {
 		if ( value ) {

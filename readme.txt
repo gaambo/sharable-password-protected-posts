@@ -55,7 +55,7 @@ e.g.
 - The link will be displayed if the checkbox is checked, just copy and share the link.
 - To disable just uncheck the box.
 
-By default it's enabled for all public post types, but that can be changed via the `sppp/postTypes` filter.
+By default, it's enabled for all public post types, but that can be changed via the `sppp/postTypes` filter.
 
 == Frequently Asked Questions ==
 
