@@ -76,11 +76,11 @@ function is_key_valid( string $user_key, int|WP_Post $post ): bool {
  */
 function can_post_be_viewed_with_key( WP_Post $post, ?string $key = null ): bool {
     if ( ! $key ) {
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
         if ( empty( $_GET['_sppp_key'] ) ) {
             return false;
         }
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
         $key = sanitize_text_field( $_GET['_sppp_key'] );
     }
 

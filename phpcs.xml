@@ -77,6 +77,13 @@
     <!-- Add in some extra rules from other standards. -->
     <rule ref="Generic.Commenting.Todo"/>
 
+    <!-- These sniffs are not included in WordPress-Extra but in WordPress -->
+    <!-- See https://github.com/WordPress/WordPress-Coding-Standards/issues/1440 -->
+    <rule ref="WordPress.DB.DirectDatabaseQuery" />
+    <rule ref="WordPress.DB.SlowDBQuery" />
+    <rule ref="WordPress.Security.ValidatedSanitizedInput" />
+    <rule ref="WordPress.Utils.I18nTextDomainFixer" />
+
     <!-- Make sure we always exit after a redirect -->
     <!--<rule ref="WordPressVIPMinimum.Security.ExitAfterRedirect"/>-->
 
