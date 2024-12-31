@@ -1,6 +1,6 @@
-import { registerPlugin } from "@wordpress/plugins";
-import PostStatusSettings from "./PostStatusSettings";
+import { registerPlugin } from '@wordpress/plugins';
+import PostStatusSettings from './PostStatusSettings';
 
-registerPlugin("sharable-password-protected-posts", {
+registerPlugin( 'sharable-password-protected-posts', {
 	render: PostStatusSettings,
-});
+} );
