@@ -27,6 +27,7 @@ phpcs.xml
 phpcs.xml.dist
 phpstan.neon
 phpstan.neon.dist
+vendor/bin
 webpack.config.js
 wordpress
 wp-cli.yml
