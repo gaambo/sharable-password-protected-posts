@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/includes/classes" isTestSource="false" packagePrefix="Private_Post_Share\" />
+      <sourceFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/includes" isTestSource="false" packagePrefix="WordPress\Plugin_Check\" />
+      <sourceFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/tests/behat/includes" isTestSource="true" packagePrefix="WordPress\Plugin_Check\Behat_Utils\" />
+      <sourceFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/tests/phpunit/testdata/Checks" isTestSource="true" packagePrefix="WordPress\Plugin_Check\Test_Data\" />
+      <sourceFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/tests/phpunit/utils" isTestSource="true" packagePrefix="WordPress\Plugin_Check\Test_Utils\" />
+      <sourceFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/query-monitor/tests/integration" isTestSource="true" packagePrefix="QM\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/user-switching/tests/integration" isTestSource="true" packagePrefix="UserSwitching\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dealerdirect/phpcodesniffer-composer-installer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-stubs/wordpress-stubs" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpcompatibility/php-compatibility" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpcompatibility/phpcompatibility-paragonie" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpcompatibility/phpcompatibility-wp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpcsstandards/phpcsextra" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpcsstandards/phpcsutils" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/szepeviktor/phpstan-wordpress" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/wp-coding-standards/wpcs" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/afragen/wordpress-plugin-readme-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/automattic/vipwpcs" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/dealerdirect/phpcodesniffer-composer-installer" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/erusev/parsedown" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/phpcsstandards/phpcsextra" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/phpcsstandards/phpcsutils" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/plugin-check/phpcs-sniffs" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/sirbrillig/phpcs-variable-analysis" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/squizlabs/php_codesniffer" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/wp-coding-standards/wpcs" />
+      <excludeFolder url="file://$MODULE_DIR$/wordpress/wp-content/plugins/query-monitor/vendor/composer" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

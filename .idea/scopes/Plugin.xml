@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Plugin" pattern="file[boilerplate-plugin]:includes//*||file[boilerplate-plugin]:templates//*||file[boilerplate-plugin]:src//*||file:boilerplate-plugin.php" />
+</component>

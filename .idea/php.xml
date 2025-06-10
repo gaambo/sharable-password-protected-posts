@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LaravelPint">
+    <laravel_pint_settings>
+      <laravel_pint_by_interpreter asDefaultInterpreter="true" interpreter_id="74691037-aa5e-4d77-8ec2-119c42716f1c">
+        <option name="timeout" value="30000" />
+      </laravel_pint_by_interpreter>
+    </laravel_pint_settings>
+  </component>
+  <component name="MessDetector">
+    <phpmd_settings>
+      <phpmd_by_interpreter asDefaultInterpreter="true" interpreter_id="74691037-aa5e-4d77-8ec2-119c42716f1c" timeout="30000" />
+    </phpmd_settings>
+  </component>
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="codingStandard" value="Custom" />
+    <option name="customRuleset" value="$PROJECT_DIR$/phpcs.xml.dist" />
+    <option name="extensions" value="php" />
+    <option name="highlightLevel" value="WARNING" />
+    <option name="showSniffs" value="true" />
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpCSFixer">
+    <phpcsfixer_settings>
+      <phpcs_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="74691037-aa5e-4d77-8ec2-119c42716f1c" timeout="30000" />
+    </phpcsfixer_settings>
+  </component>
+  <component name="PhpCodeSniffer">
+    <phpcs_settings>
+      <PhpCSConfiguration beautifier_path="$PROJECT_DIR$/vendor/bin/phpcbf" tool_path="$PROJECT_DIR$/vendor/bin/phpcs" />
+      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="74691037-aa5e-4d77-8ec2-119c42716f1c" beautifier_path="/var/www/html/vendor/bin/phpcbf" tool_path="/var/www/html/vendor/bin/phpcs" timeout="30000" />
+    </phpcs_settings>
+  </component>
+  <component name="PhpDebugIgnoredPathsSettings">
+    <skipped_paths>
+      <skipped_path path="$PROJECT_DIR$/wordpress/wp-admin/admin-ajax.php" />
+    </skipped_paths>
+  </component>
+  <component name="PhpExternalFormatter">
+    <option name="externalFormatter" value="PHP_CBF" />
+  </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/phpcompatibility/php-compatibility" />
+      <path value="$PROJECT_DIR$/vendor/phpcompatibility/phpcompatibility-paragonie" />
+      <path value="$PROJECT_DIR$/vendor/phpcompatibility/phpcompatibility-wp" />
+      <path value="$PROJECT_DIR$/vendor/php-stubs/wordpress-stubs" />
+      <path value="$PROJECT_DIR$/vendor/szepeviktor/phpstan-wordpress" />
+      <path value="$PROJECT_DIR$/vendor/wp-coding-standards/wpcs" />
+      <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/vendor/phpcsstandards/phpcsextra" />
+      <path value="$PROJECT_DIR$/vendor/dealerdirect/phpcodesniffer-composer-installer" />
+      <path value="$PROJECT_DIR$/vendor/phpcsstandards/phpcsutils" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/query-monitor/vendor/composer" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/squizlabs/php_codesniffer" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/automattic/vipwpcs" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/erusev/parsedown" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/sirbrillig/phpcs-variable-analysis" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/afragen/wordpress-plugin-readme-parser" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/dealerdirect/phpcodesniffer-composer-installer" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/plugin-check/phpcs-sniffs" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/phpcsstandards/phpcsextra" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/phpcsstandards/phpcsutils" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/wp-coding-standards/wpcs" />
+      <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/composer" />
+    </include_path>
+  </component>
+  <component name="PhpInterpreters">
+    <interpreters>
+      <interpreter id="74691037-aa5e-4d77-8ec2-119c42716f1c" name="private-post-share" home="docker-compose://DATA" auto="false" debugger_id="php.debugger.XDebug">
+        <remote_data INTERPRETER_PATH="php8.3" HELPERS_PATH="/opt/.phpstorm_helpers" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" DOCKER_ACCOUNT_NAME="Docker" DOCKER_COMPOSE_SERVICE_NAME="web" DOCKER_REMOTE_PROJECT_PATH="/opt/project">
+          <PathMappingSettings>
+            <option name="pathMappings">
+              <list>
+                <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html" />
+                <mapping local-root="$PROJECT_DIR$/../../goodwp/plugins/boilerplate-plugin/.ddev" remote-root="/mnt/ddev_config" />
+                <mapping local-root="$PROJECT_DIR$/../../goodwp/plugins/boilerplate-plugin/.ddev/xhprof" remote-root="/usr/local/bin/xhprof" />
+                <mapping local-root="$PROJECT_DIR$/../../goodwp/plugins/boilerplate-plugin/wordpress/wp-content/uploads" remote-root="/var/www/html/wordpress/wp-content/uploads" />
+                <mapping local-root="$PROJECT_DIR$/../../goodwp/plugins/boilerplate-plugin/.git" remote-root="/var/www/html/.git" />
+                <mapping local-root="$APPLICATION_CONFIG_DIR$/scratches" remote-root="/opt/scratches" />
+              </list>
+            </option>
+          </PathMappingSettings>
+          <type_data command="EXEC" />
+          <dockerComposeConfigurationPaths>
+            <item value="$PROJECT_DIR$/.ddev/.ddev-docker-compose-full.yaml" />
+          </dockerComposeConfigurationPaths>
+          <envs>
+            <env name="COMPOSE_PROJECT_NAME" value="ddev-private-post-share" />
+          </envs>
+        </remote_data>
+      </interpreter>
+    </interpreters>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
+  <component name="PhpStan">
+    <PhpStan_settings>
+      <PhpStanConfiguration tool_path="$PROJECT_DIR$/vendor/bin/phpstan" />
+      <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="74691037-aa5e-4d77-8ec2-119c42716f1c" tool_path="/var/www/html/vendor/bin/phpstan" timeout="60000" />
+    </PhpStan_settings>
+  </component>
+  <component name="PhpStanOptionsConfiguration">
+    <option name="config" value="$PROJECT_DIR$/phpstan.neon.dist" />
+    <option name="memoryLimit" value="1G" />
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" />
+    </phpunit_settings>
+  </component>
+  <component name="Psalm">
+    <Psalm_settings>
+      <psalm_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="74691037-aa5e-4d77-8ec2-119c42716f1c" timeout="60000" />
+    </Psalm_settings>
+  </component>
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+</project>
