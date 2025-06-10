@@ -1,6 +1,4 @@
 <?php
-// phpcs:ignoreFile PSR1.Files.SideEffects
-
 /**
  * Plugin Name:       Private Post Share
  * Description:       Share password protected posts via secret URLs
@@ -19,104 +17,87 @@
 
 namespace Private_Post_Share;
 
-use WP_REST_Request;
+use Exception;
+use WP_Post;
+use WP_Query;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-require_once plugin_dir_path(__FILE__) . 'vendor/vendor-prefixed/autoload.php';
-require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
+require_once plugin_dir_path( __FILE__ ) . 'vendor/vendor-prefixed/autoload.php';
+require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 
 /**
  * Adds JS & CSS to editor
  *
  * @return void
+ * @throws Exception If plugin assets are not built.
  */
-function addEditorAssets()
-{
-    $assetFile = plugin_dir_path(__FILE__) . 'build/index.asset.php';
-    if (!file_exists($assetFile)) {
-        throw new \Exception('You have to build the scripts before loading them');
+function add_editor_assets(): void {
+    $asset_file = plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
+    if ( ! file_exists( $asset_file ) ) {
+        throw new Exception( 'You have to build the scripts before loading them' );
     }
-    $assetsConfig = require($assetFile);
+    $assets_config = require $asset_file;
 
-    $jsData = [
+    $js_data = [
         'settings' => [
-            'postTypes' => getEnabledPostTypes(),
-            'hasPermissions' => current_user_can('publish_posts'),
+            'postTypes' => get_enabled_post_types(),
+            'hasPermissions' => current_user_can( 'publish_posts' ),
         ],
-        'newKey' => generateKey(),
+        'newKey' => generate_key(),
     ];
 
-    $scriptDependencies = $assetsConfig['dependencies'];
-    // For WordPress < 6.6 the editor script depends on wp-edit-post (because of PluginPostStatusInfo)
-    // but the script is built against 6.6, therefore only requiring the wp-editor script.
-    require ABSPATH . WPINC . '/version.php';
-    if(version_compare($wp_version, '6.6', '<')) {
-        $scriptDependencies[] = 'wp-edit-post';
-    }
-
     wp_enqueue_script(
-        'sppp',
-        plugin_dir_url(__FILE__) . 'build/index.js',
-        $scriptDependencies,
-        $assetsConfig['version']
+        'private-post-share-editor',
+        plugin_dir_url( __FILE__ ) . 'build/index.js',
+        $assets_config['dependencies'],
+        $assets_config['version']
     );
 
     wp_enqueue_style(
-        'sppp',
-        plugin_dir_url(__FILE__) . 'build/index.css',
+        'private-post-share-editor',
+        plugin_dir_url( __FILE__ ) . 'build/index.css',
         [],
-        $assetsConfig['version']
+        $assets_config['version']
     );
 
-    wp_add_inline_script('sppp', 'window.sppp = ' . json_encode($jsData) . ';', 'before');
+    wp_add_inline_script( 'private-post-share-editor', 'window.privatePostShare = ' . json_encode( $js_data ) . ';', 'before' );
 }
-add_action('enqueue_block_editor_assets', __NAMESPACE__ . '\addEditorAssets');
-
-function loadLanguages()
-{
-    load_plugin_textdomain(
-        'sharable-password-protected-posts',
-        false,
-        dirname(plugin_dir_path(__FILE__)) . 'languages'
-    );
-}
-add_action('init', __NAMESPACE__ . '\loadLanguages');
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\add_editor_assets' );
 
 /**
  * Registers the two meta fields
  *
  * @return void
  */
-function registerMeta()
-{
-    $enabledMetaField = [
+function register_meta(): void {
+    $enabled_meta_field = [
         // 'show_in_rest' => false, // Add a custom rest field to better check permissions.
         'show_in_rest' => [
             'schema' => [
-                'context' => ['edit']
+                'context' => [ 'edit' ],
             ],
-            'prepare_callback' => function ($value, $request, $args) {
+            'prepare_callback' => function ( $value, $request, $args ) {
                 global $post;
                 // WP_REST_Posts_Controller set global post instance.
-                $postId = $post ? $post->ID : $request['id'];
+                $post_id = $post ? $post->ID : $request['id'];
 
-                $allowed = $postId ? current_user_can('publish_posts', $postId) : current_user_can('publish_posts');
+                $allowed = $post_id ? current_user_can( 'publish_posts', $post_id ) : current_user_can( 'publish_posts' );
                 return $allowed ? $value : null;
-            }
+            },
         ],
         'single' => true,
         'type' => 'boolean',
         'default' => false,
-        'auth_callback' => function ($allowed, $meta_key, $objectId, $userId) {
-            if ($userId) {
-                return user_can($userId, 'publish_posts', $objectId);
+        'auth_callback' => function ( $allowed, $meta_key, $object_id, $user_id ) {
+            if ( $user_id ) {
+                return user_can( $user_id, 'publish_posts', $object_id );
             }
-            return current_user_can('publish_posts', $objectId);
+            return current_user_can( 'publish_posts', $object_id );
         },
-        'sanitize_callback' => function ($value) {
-            if ($value === true || $value === 1 || $value === '1' || $value === 'true') {
+        'sanitize_callback' => function ( $value ) {
+            if ( $value === true || $value === 1 || $value === '1' || $value === 'true' ) {
                 $value = true;
             } else {
                 $value = false;
@@ -125,49 +106,48 @@ function registerMeta()
         },
     ];
 
-    $keyMetaField = [
+    $key_meta_field = [
         // 'show_in_rest' => false, // Add a custom rest field to better check permissions.
         'show_in_rest' => [
             'schema' => [
-              'type' => 'string',
-                'context' => ['edit']
+				'type' => 'string',
+                'context' => [ 'edit' ],
             ],
-            'prepare_callback' => function ($value, $request, $args) {
+            'prepare_callback' => function ( $value, $request, $args ) {
                 global $post;
                 // WP_REST_Posts_Controller set global post instance.
-                $postId = $post ? $post->ID : $request['id'];
+                $post_id = $post ? $post->ID : $request['id'];
 
-                $allowed = $postId ? current_user_can('publish_posts', $postId) : current_user_can('publish_posts');
+                $allowed = $post_id ? current_user_can( 'publish_posts', $post_id ) : current_user_can( 'publish_posts' );
                 return $allowed ? $value : null;
-            }
+            },
         ],
         'single' => true,
         'type' => 'string',
         'default' => '',
-        'auth_callback' => function ($allowed, $meta_key, $objectId, $userId) {
-            if ($userId) {
-                return user_can($userId, 'publish_posts', $objectId);
+        'auth_callback' => function ( $allowed, $meta_key, $object_id, $user_id ) {
+            if ( $user_id ) {
+                return user_can( $user_id, 'publish_posts', $object_id );
             }
-            return current_user_can('publish_posts', $objectId);
+            return current_user_can( 'publish_posts', $object_id );
         },
-        'sanitize_callback' => function ($value) {
-            $value = sanitize_text_field(trim($value));
-            if (empty($value)) {
-                return generateKey();
+        'sanitize_callback' => function ( $value ) {
+            $value = sanitize_text_field( trim( $value ) );
+            if ( empty( $value ) ) {
+                return generate_key();
             }
             return $value;
-        }
+        },
     ];
 
-    $postTypes = getEnabledPostTypes();
+    $post_types = get_enabled_post_types();
 
-    foreach ($postTypes as $postType) {
-        register_post_meta($postType, '_sppp_enabled', $enabledMetaField);
-        register_post_meta($postType, '_sppp_key', $keyMetaField);
+    foreach ( $post_types as $post_type ) {
+        register_post_meta( $post_type, '_sppp_enabled', $enabled_meta_field );
+        register_post_meta( $post_type, '_sppp_key', $key_meta_field );
     }
-
 }
-add_action('init', __NAMESPACE__ . '\registerMeta');
+add_action( 'init', __NAMESPACE__ . '\register_meta' );
 
 /**
  * Filters the main queries posts_results - for PRIVATE posts
@@ -177,152 +157,150 @@ add_action('init', __NAMESPACE__ . '\registerMeta');
  * This only filters the main query's WP_Post instance, not all other objects
  * that may be get via get_post; but using get_queried_object will work
  *
- * @param \WP_Post[] $posts
- * @param \WP_Query $query
- * @return void
+ * @param WP_Post[] $posts
+ * @param WP_Query  $query
+ * @return WP_Post[]
  */
-function filterPostsQuery($posts, $query)
-{
-    // only handle the main query
-    if (!$query->is_main_query()) {
+function filter_posts_query( $posts, $query ): array {
+    // Only handle the main query.
+    if ( ! $query->is_main_query() ) {
         return $posts;
     }
 
-    // only handle single views, don't handle not-found posts
-    if (count($posts) !== 1) {
+    // Only handle single views, don't handle not-found posts.
+    if ( count( $posts ) !== 1 ) {
         return $posts;
     }
 
-    $mainPost = $posts[0];
-    $enabledPostTypes = getEnabledPostTypes();
+    $main_post = $posts[0];
+    $enabled_post_types = get_enabled_post_types();
 
-    // if the main (single) post has a not-enabled post type, bail early
-    if (!in_array($mainPost->post_type, $enabledPostTypes)) {
+    // If the main (single) post has a not-enabled post type, bail early.
+    if ( ! in_array( $main_post->post_type, $enabled_post_types ) ) {
         return $posts;
     }
 
-    // if a post type was specifically queried, check if only allowed/enabled post types where queried
-    $postTypes = $query->get('post_type');
-    if (!empty($postTypes) && (is_array($postTypes) || is_string($postTypes))) {
-        // if a post type is queried (maybe one of multiple), that is not enabled bail early
+    // If a post-type was specifically queried, check if only allowed/enabled post-types where queried.
+    $post_types = $query->get( 'post_type' );
+    if ( ! empty( $post_types ) && ( is_array( $post_types ) || is_string( $post_types ) ) ) {
+        // If a post-type is queried (maybe one of multiples), that is not enabled bail early.
         if (
-            !empty($postTypes) &&
-            !empty(array_diff((array)$postTypes, $enabledPostTypes))
+            ! empty( array_diff( (array) $post_types, $enabled_post_types ) )
         ) {
             return $posts;
         }
     }
 
-    // should only be 1 on singulars normally
-    foreach ($posts as &$post) {
-        if (canPostBeViewedWithKey($post)) {
+    // Should only be 1 on singulars normally.
+    foreach ( $posts as &$post ) {
+        if ( can_post_be_viewed_with_key( $post ) ) {
             $post->post_status = 'publish';
         }
     }
     return $posts;
 }
-add_filter('posts_results', __NAMESPACE__ . '\filterPostsQuery', 10, 2);
+add_filter( 'posts_results', __NAMESPACE__ . '\filter_posts_query', 10, 2 );
 
 /**
- * Filters whether a post password form is required - for PASSWORD protected posts
+ * Filters whether a post-password form is required - for PASSWORD protected posts
  *
- * @param bool $required
- * @param \WP_Post $post
+ * @param bool    $required
+ * @param WP_Post $post
  * @return bool
  */
-function filterPostPasswordRequired($required, $post)
-{
-    $enabledPostTypes = getEnabledPostTypes();
+function filter_post_password_required( $required, $post ): bool {
+    $enabled_post_types = get_enabled_post_types();
 
-    // if the post has a not-enabled post type, bail early
-    if (!in_array($post->post_type, $enabledPostTypes)) {
+    // If the post has a not-enabled post type, bail early.
+    if ( ! in_array( $post->post_type, $enabled_post_types ) ) {
         return $required;
     }
 
-    if (canPostBeViewedWithKey($post)) {
+    if ( can_post_be_viewed_with_key( $post ) ) {
         return false;
     }
     return $required;
 }
-add_filter('post_password_required', __NAMESPACE__ . '\filterPostPasswordRequired', 10, 2);
+add_filter( 'post_password_required', __NAMESPACE__ . '\filter_post_password_required', 10, 2 );
 
 /**
  * Removes the "Protected" from password protected/private posts
- * if they can be viewd with the current url key
+ * if they can be viewed with the current url key
  *
- * @param string $prefix
+ * @param string      $prefix
  * @param WP_Post|int $post
  * @return string
  */
-function filterPostTitlePrefix($prefix, $post)
-{
-    if (canPostBeViewedWithKey($post)) {
+function filter_post_title_prefix( $prefix, $post ): string {
+    if ( can_post_be_viewed_with_key( $post ) ) {
         return '%s';
     }
     return $prefix;
 }
-add_filter('protected_title_format', __NAMESPACE__ . '\filterPostTitlePrefix', 10, 2);
-add_filter('private_title_format', __NAMESPACE__ . '\filterPostTitlePrefix', 10, 2);
+add_filter( 'protected_title_format', __NAMESPACE__ . '\filter_post_title_prefix', 10, 2 );
+add_filter( 'private_title_format', __NAMESPACE__ . '\filter_post_title_prefix', 10, 2 );
 
 /**
  * Whether a given post can be viewed with a given key
  *
- * @param \WP_Post $post The post to check for
- * @param string $key A key to check against, defaults to the $_GET parameters
- * @return bool False if the post is not private/protected or if SPPP is not enabled;
+ * @param WP_Post $post The post to check for.
+ * @param string  $key A key to check against, defaults to the $_GET parameters.
+ * @return bool False if the post is not private/protected or if Private Post Share is not enabled;
  *              True if key can be used to view the private post
  */
-function canPostBeViewedWithKey($post, $key = null)
-{
-    if (!$key) {
-        if (empty($_GET['_sppp_key'])) {
+function can_post_be_viewed_with_key( $post, $key = null ): bool {
+    if ( ! $key ) {
+        if ( empty( $_GET['_sppp_key'] ) ) {
             return false;
         }
-        $key = sanitize_text_field($_GET['_sppp_key']);
+        $key = sanitize_text_field( $_GET['_sppp_key'] );
     }
 
-    if (empty($key)) {
+    if ( empty( $key ) ) {
         return false;
     }
 
-    if (empty($post->post_password) && $post->post_status !== 'private') {
+    if ( empty( $post->post_password ) && $post->post_status !== 'private' ) {
         return false;
     }
 
-    $isKeyValid = \SPPP\isKeyValid($key, $post);
+    $is_key_valid = is_key_valid( $key, $post );
 
-    if ($isKeyValid) {
-        return true;
-    }
-    return false;
+    /**
+     * Filter whether a given post can be viewed with a given key
+     *
+     * @param bool    $is_key_valid
+     * @param WP_Post $post
+     * @param string  $key
+     */
+    return apply_filters( 'private_post_share/can_view', $is_key_valid, $post, $key );
 }
 
 /**
  * Checks the given key by the user against the stored key
  *
- * @param string $userKey
+ * @param string      $user_key
  * @param WP_Post|int $post
  * @return bool False if key is not valid or SPPP is not enabled for this post
  */
-function isKeyValid($userKey, $post)
-{
-    if (empty($userKey)) {
+function is_key_valid( $user_key, $post ): bool {
+    if ( empty( $user_key ) ) {
         return false;
     }
 
-    $postId = is_a($post, 'WP_Post') ? $post->ID : $post;
+    $post_id = is_a( $post, 'WP_Post' ) ? $post->ID : $post;
 
-    $isEnabled = get_post_meta($postId, '_sppp_enabled', true);
-    if (!$isEnabled) {
+    $is_enabled = get_post_meta( $post_id, '_sppp_enabled', true );
+    if ( ! $is_enabled ) {
         return false;
     }
-    $savedKey = get_post_meta($postId, '_sppp_key', true);
+    $saved_key = get_post_meta( $post_id, '_sppp_key', true );
 
-    if (empty($savedKey)) {
+    if ( empty( $saved_key ) ) {
         return false;
     }
 
-    return $savedKey === $userKey;
+    return $saved_key === $user_key;
 }
 
 /**
@@ -330,17 +308,35 @@ function isKeyValid($userKey, $post)
  *
  * @return string[] name of post types
  */
-function getEnabledPostTypes()
-{
+function get_enabled_post_types(): array {
+    $post_types = array_keys(
+        get_post_types(
+            [
+				'public' => true,
+			],
+            'names'
+        )
+    );
+
     /**
-     * Allows filtering the post types for which SPPP is enabled
+     * Allows filtering the post types for which Private Post Share is enabled
      * By default it's enabled for all public post types
      *
-     * @param string[] $postTypes array of post type names (slugs)
+     * @deprecated 2.0.0
+     *
+     * @param string[] $post_types Array of post type names (slugs).
      */
-    return apply_filters('sppp/postTypes', array_keys(get_post_types([
-        'public' => true,
-    ], 'names')));
+    $post_types = apply_filters_deprecated( 'sppp/postTypes', $post_types, '2.0.0', 'private-post-share/post_types' );
+
+    /**
+     * Allows filtering the post types for which Private Post Share is enabled
+     * By default it's enabled for all public post types
+     *
+     * @since 2.0.0
+     *
+     * @param string[] $post_types Array of post type names (slugs).
+     */
+    return apply_filters( 'private_post_share/post_types', $post_types );
 }
 
 /**
@@ -348,7 +344,6 @@ function getEnabledPostTypes()
  *
  * @return string
  */
-function generateKey()
-{
-    return wp_generate_password(15, false);
+function generate_key(): string {
+    return wp_generate_password( 15, false );
 }

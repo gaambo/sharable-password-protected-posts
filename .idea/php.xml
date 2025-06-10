@@ -34,7 +34,7 @@
   <component name="PhpCodeSniffer">
     <phpcs_settings>
       <PhpCSConfiguration beautifier_path="$PROJECT_DIR$/vendor/bin/phpcbf" tool_path="$PROJECT_DIR$/vendor/bin/phpcs" />
-      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="74691037-aa5e-4d77-8ec2-119c42716f1c" beautifier_path="/var/www/html/vendor/bin/phpcbf" tool_path="/var/www/html/vendor/bin/phpcs" timeout="30000" />
+      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="74691037-aa5e-4d77-8ec2-119c42716f1c" beautifier_path="/var/www/html/vendor/bin/phpcbf" standards="Modernize;MySource;NormalizedArrays;PEAR;PHPCSUtils;PHPCompatibility;PHPCompatibilityParagonieRandomCompat;PHPCompatibilityParagonieSodiumCompat;PHPCompatibilityWP;PSR1;PSR12;PSR2;Squiz;Universal;WordPress;WordPress-Core;WordPress-Docs;WordPress-Extra;Zend" tool_path="/var/www/html/vendor/bin/phpcs" timeout="30000" />
     </phpcs_settings>
   </component>
   <component name="PhpDebugIgnoredPathsSettings">
@@ -48,17 +48,6 @@
   <component name="PhpIncludePathManager">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
-      <path value="$PROJECT_DIR$/vendor/phpcompatibility/php-compatibility" />
-      <path value="$PROJECT_DIR$/vendor/phpcompatibility/phpcompatibility-paragonie" />
-      <path value="$PROJECT_DIR$/vendor/phpcompatibility/phpcompatibility-wp" />
-      <path value="$PROJECT_DIR$/vendor/php-stubs/wordpress-stubs" />
-      <path value="$PROJECT_DIR$/vendor/szepeviktor/phpstan-wordpress" />
-      <path value="$PROJECT_DIR$/vendor/wp-coding-standards/wpcs" />
-      <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
-      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
-      <path value="$PROJECT_DIR$/vendor/phpcsstandards/phpcsextra" />
-      <path value="$PROJECT_DIR$/vendor/dealerdirect/phpcodesniffer-composer-installer" />
-      <path value="$PROJECT_DIR$/vendor/phpcsstandards/phpcsutils" />
       <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/query-monitor/vendor/composer" />
       <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/squizlabs/php_codesniffer" />
       <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/automattic/vipwpcs" />
@@ -71,6 +60,17 @@
       <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/phpcsstandards/phpcsutils" />
       <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/wp-coding-standards/wpcs" />
       <path value="$PROJECT_DIR$/wordpress/wp-content/plugins/plugin-check/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/phpcompatibility/phpcompatibility-paragonie" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/vendor/phpcompatibility/phpcompatibility-wp" />
+      <path value="$PROJECT_DIR$/vendor/phpcsstandards/phpcsextra" />
+      <path value="$PROJECT_DIR$/vendor/phpcsstandards/phpcsutils" />
+      <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
+      <path value="$PROJECT_DIR$/vendor/dealerdirect/phpcodesniffer-composer-installer" />
+      <path value="$PROJECT_DIR$/vendor/szepeviktor/phpstan-wordpress" />
+      <path value="$PROJECT_DIR$/vendor/wp-coding-standards/wpcs" />
+      <path value="$PROJECT_DIR$/vendor/php-stubs/wordpress-stubs" />
+      <path value="$PROJECT_DIR$/vendor/phpcompatibility/php-compatibility" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

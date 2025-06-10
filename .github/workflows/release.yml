@@ -20,19 +20,19 @@ jobs:
             contents: write
         steps:
             # Checkout the code
-            -   name: Checkout Code
-                uses: actions/checkout@v3
+            - name: Checkout Code
+              uses: actions/checkout@v3
             # Build Plugin ZIP
-            -   name: Build Plugin ZIP
-                id: build-zip
-                uses: ./.github/actions/build-plugin
+            - name: Build Plugin ZIP
+              id: build-zip
+              uses: ./.github/actions/build-plugin
             # Attach dynamically found ZIP to Release
-            -   name: Attach Plugin ZIP (Release)
-                uses: actions/upload-release-asset@v1
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                with:
-                    upload_url: ${{ github.event.release.upload_url }}
-                    asset_path: ${{ steps.build-zip.outputs.zip-file }}
-                    asset_name: ${{ steps.build-zip.outputs.zip-file }}
-                    asset_content_type: application/zip
+            - name: Attach Plugin ZIP (Release)
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ github.event.release.upload_url }}
+                  asset_path: ${{ steps.build-zip.outputs.zip-file }}
+                  asset_name: ${{ steps.build-zip.outputs.zip-file }}
+                  asset_content_type: application/zip

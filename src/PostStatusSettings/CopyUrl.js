@@ -7,6 +7,7 @@ import { store as editorStore } from "@wordpress/editor";
 import { __ } from "@wordpress/i18n";
 
 import CONSTANTS from "./constants";
+
 const { META_KEY, QUERY_PARAM } = CONSTANTS;
 
 /**
@@ -59,19 +60,27 @@ class CopyUrl extends Component {
         });
         return (
             <div>
-                <label htmlFor="sppp-link-field" className="screen-reader-text">
+                <label
+                    htmlFor="private-post-share-link-field"
+                    className="screen-reader-text">
                     {__("Share this URL", "sharable-password-protected-posts")}
                 </label>
-                <Flex className="sppp__link-copy">
+                <Flex className="private-post-share__link-copy">
                     <TextControl
-                        id="sppp-link-field"
-                        className="sppp__link-field"
+                        id="private-post-share-link-field"
+                        className="private-post-share__link-field"
                         readOnly
-                        label={__("Secret URL:", "sharable-password-protected-posts")}
+                        label={__(
+                            "Secret URL:",
+                            "sharable-password-protected-posts"
+                        )}
                         value={safeDecodeURIComponent(url)}
                         onFocus={this.onSelectInput}
                     />
-                    <CopyButton text={url} onCopy={this.onCopy} className="sppp__copy-button">
+                    <CopyButton
+                        text={url}
+                        onCopy={this.onCopy}
+                        className="private-post-share__copy-button">
                         {this.state.showCopyConfirmation
                             ? __("Copied!", "sharable-password-protected-posts")
                             : __("Copy", "sharable-password-protected-posts")}

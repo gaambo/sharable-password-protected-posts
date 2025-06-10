@@ -55,7 +55,7 @@ e.g.
 - The link will be displayed if the checkbox is checked, just copy and share the link.
 - To disable just uncheck the box.
 
-By default it's enabled for all public post types, but that can be changed via the `sppp/postTypes` filter.
+By default it's enabled for all public post types, but that can be changed via the `private_post_share/post_types` filter.
 
 == Frequently Asked Questions ==
 
@@ -76,6 +76,23 @@ The editor has to have the `publish_posts` capability.
 Yes, by default all public post types are enabled. You can filter them with the `sppp/postTypes` filter.
 
 == Changelog ==
+
+= 2.0.0 (2025-06-10): New Name & Structure =
+This is a major release with breaking changes.
+These breaking changes are only important for developers extending this plugin or using the plugins functions.
+**If you are just using the plugin, you are fine and nothing will change for you.**
+
+The old plugins name was a mouth full, so we changed it to better reflect what it does.
+The old name was `Sharable Password Protected Posts` and the new name is `Private Post Share`.
+
+* Breaking: New plugin structure and namespace
+    * The plugin has been moved to a new namespace called `Private_Post_Share`
+    * All hooks are prefixed with `private_post_share/`
+    * Meta keys and query var stay the same `_spp` prefix for backwards compatibility
+    * Plugin slug and textdomain stays `sharable-password-protected-posts` (for WP.org repository)
+* Breaking: Update required PHP version to 8.2 and WP 6.7
+* Dev: Add code quality tools and GitHub Actions for them
+* Dev: Add automated tests via Codeception
 
 = 1.1.0 (2024-09-02): =
 * Add WordPress 6.6 compatibility

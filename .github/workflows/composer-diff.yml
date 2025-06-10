@@ -2,7 +2,7 @@ name: Composer Diff
 on:
     pull_request:
         paths:
-            - 'composer.lock'
+            - "composer.lock"
 jobs:
     composer-diff:
         name: Composer Diff
@@ -12,20 +12,20 @@ jobs:
             pull-requests: write
             contents: read
         steps:
-            -   name: Checkout
-                uses: actions/checkout@v4
-                with:
-                    fetch-depth: 0 # Required to make it possible to compare with PR base branch
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # Required to make it possible to compare with PR base branch
 
-            -   name: Generate composer diff
-                id: composer_diff # To reference the output in comment
-                uses: IonBazan/composer-diff-action@v1
+            - name: Generate composer diff
+              id: composer_diff # To reference the output in comment
+              uses: IonBazan/composer-diff-action@v1
 
-            -   uses: marocchino/sticky-pull-request-comment@v2
-                # An empty diff result will break this action.
-                if: ${{ steps.composer_diff.outputs.composer_diff_exit_code != 0 }}
-                with:
-                    header: composer-diff # Used to identify this sticky comment.
-                    message: |
-                        **Composer package changes**
-                        ${{ steps.composer_diff.outputs.composer_diff }}
+            - uses: marocchino/sticky-pull-request-comment@v2
+              # An empty diff result will break this action.
+              if: ${{ steps.composer_diff.outputs.composer_diff_exit_code != 0 }}
+              with:
+                  header: composer-diff # Used to identify this sticky comment.
+                  message: |
+                      **Composer package changes**
+                      ${{ steps.composer_diff.outputs.composer_diff }}

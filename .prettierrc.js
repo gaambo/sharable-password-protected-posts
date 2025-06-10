@@ -1,4 +1,4 @@
-const wordPressConfig = require( "@wordpress/prettier-config" );
+const wordPressConfig = require("@wordpress/prettier-config");
 
 module.exports = {
     ...wordPressConfig,

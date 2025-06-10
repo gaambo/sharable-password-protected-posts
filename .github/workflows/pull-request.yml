@@ -19,29 +19,29 @@ jobs:
             contents: read
         steps:
             # Checkout the code
-            -   name: Checkout Code
-                uses: actions/checkout@v3
+            - name: Checkout Code
+              uses: actions/checkout@v3
             # Build Plugin ZIP
-            -   name: Build Plugin ZIP
-                uses: ./.github/actions/build-plugin
-                with:
-                    composer-token: ${{ secrets.GOODWP_COMPOSER_PAT }}
+            - name: Build Plugin ZIP
+              uses: ./.github/actions/build-plugin
+              with:
+                  composer-token: ${{ secrets.GOODWP_COMPOSER_PAT }}
             # Upload ZIP as PR artifact
-            -   name: Upload Plugin ZIP (PR)
-                id: upload-artifacts
-                uses: actions/upload-artifact@v4
-                with:
-                    name: plugin.zip
-                    path: ${{ steps.build-zip.outputs.zip-file }}
+            - name: Upload Plugin ZIP (PR)
+              id: upload-artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                  name: plugin.zip
+                  path: ${{ steps.build-zip.outputs.zip-file }}
 
             # Post sticky comment with a link to the ZIP in the PR
-            -   name: Add Sticky Comment
-                uses: marocchino/sticky-pull-request-comment@v2
-                # ZIP-Archives are double-zipped
-                # https://github.com/actions/upload-artifact?tab=readme-ov-file#zip-archives
-                with:
-                    header: plugin-zip # Used to identify this sticky comment.
-                    message: |
-                        🎉 The plugin ZIP is ready for testing!
-                        [Download the latest ZIP file](${{ steps.upload-artifacts.outputs.artifact-url }})
-                        _NOTE:_ The Plugin-ZIP is file is in the Artifact-ZIP file you download. Extract it once.
+            - name: Add Sticky Comment
+              uses: marocchino/sticky-pull-request-comment@v2
+              # ZIP-Archives are double-zipped
+              # https://github.com/actions/upload-artifact?tab=readme-ov-file#zip-archives
+              with:
+                  header: plugin-zip # Used to identify this sticky comment.
+                  message: |
+                      🎉 The plugin ZIP is ready for testing!
+                      [Download the latest ZIP file](${{ steps.upload-artifacts.outputs.artifact-url }})
+                      _NOTE:_ The Plugin-ZIP is file is in the Artifact-ZIP file you download. Extract it once.

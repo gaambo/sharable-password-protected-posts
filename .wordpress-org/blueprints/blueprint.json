@@ -7,9 +7,7 @@
     "features": {
         "networking": true
     },
-    "phpExtensionBundles": [
-        "kitchen-sink"
-    ],
+    "phpExtensionBundles": ["kitchen-sink"],
     "landingPage": "/wp-admin/post.php?post=9&action=edit",
     "steps": [
         {
