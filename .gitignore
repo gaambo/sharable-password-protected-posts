@@ -10,7 +10,8 @@ build
 *.zip
 
 # WordPress
-/wordpress
+/wordpress/*
+!/wordpress/wp-config-ddev.php
 
 # IDE & local env
 .DS_Store

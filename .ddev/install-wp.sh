@@ -23,8 +23,6 @@ wp option update timezone_string "Europe/Vienna"
 wp plugin install query-monitor --activate
 wp plugin install user-switching --activate
 wp language core update
-wp language plugin install --all de_DE
-wp language theme install --all de_DE
 wp option update permalink_structure "/%postname%/" --quiet
 wp rewrite flush --hard  --quiet
 ## End of opinionated

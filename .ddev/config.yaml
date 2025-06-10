@@ -4,7 +4,8 @@ docroot: wordpress
 php_version: "8.3"
 webserver_type: nginx-fpm
 xdebug_enabled: false
-additional_hostnames: [ ]
+additional_hostnames:
+    - test.private-post-share
 additional_fqdns: [ ]
 database:
     type: mariadb
@@ -328,12 +329,6 @@ hooks:
         # Install additional WP-CLI packages.
         -   exec: |
                 wp package install wp-cli/dist-archive-command --quiet
-        # Set wp-config debug values and infos
-        -   exec: |
-                wp config set WP_DEBUG true --raw
-                wp config set WP_DEBUG_DISPLAY false --raw
-                wp config set WP_DEBUG_LOG "getenv('DDEV_APPROOT').'/logs/debug.log'" --raw
-                wp config set SCRIPT_DEBUG true --raw
         # Symlink the project root (which is the plugin directory) into wp-content/plugins
         # Alternative to the method in docker-compose.mounts.yaml.
         # But this works with mutagen.
@@ -383,5 +378,5 @@ hooks:
                     echo "Error: .ddev/install-wp.sh not found." >&2
                     exit 1
                 fi
-
-
+        -   exec: /mnt/ddev_config/commands/db/create-test-database.sh
+            service: db
