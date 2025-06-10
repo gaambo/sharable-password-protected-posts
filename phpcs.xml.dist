@@ -156,6 +156,7 @@
                 <element value="sharable-password-protected-posts"/>
                 <element value="private-post-share"/>
                 <element value="Private_Post_Share"/>
+                <element value="Tests\"/>
             </property>
         </properties>
     </rule>
