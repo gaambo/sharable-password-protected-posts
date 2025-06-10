@@ -326,7 +326,7 @@ function get_enabled_post_types(): array {
      *
      * @param string[] $post_types Array of post type names (slugs).
      */
-    $post_types = apply_filters_deprecated( 'sppp/postTypes', $post_types, '2.0.0', 'private-post-share/post_types' );
+    $post_types = apply_filters_deprecated( 'sppp/postTypes', [ $post_types ], '2.0.0', 'private-post-share/post_types' );
 
     /**
      * Allows filtering the post types for which Private Post Share is enabled
