@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Support;
 
+use Exception;
 use function Private_Post_Share\generate_key;
 
 /**
