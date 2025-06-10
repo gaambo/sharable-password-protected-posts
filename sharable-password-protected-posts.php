@@ -287,14 +287,10 @@ function is_key_valid( $user_key, $post ): bool {
     if ( empty( $user_key ) ) {
         return false;
     }
-
-    $post_id = is_a( $post, 'WP_Post' ) ? $post->ID : $post;
-
-    $is_enabled = get_post_meta( $post_id, '_sppp_enabled', true );
-    if ( ! $is_enabled ) {
+    if ( ! is_enabled_for_post( $post ) ) {
         return false;
     }
-    $saved_key = get_post_meta( $post_id, '_sppp_key', true );
+    $saved_key = get_key_for_post( $post );
 
     if ( empty( $saved_key ) ) {
         return false;
@@ -346,4 +342,24 @@ function get_enabled_post_types(): array {
  */
 function generate_key(): string {
     return wp_generate_password( 15, false );
+}
+
+function get_sharable_link( int $post_id ): ?string {
+    if ( ! is_enabled_for_post( $post_id ) ) {
+        return null;
+    }
+    $key = get_key_for_post( $post_id );
+    return add_query_arg( '_sppp_key', $key, get_permalink( $post_id ) );
+}
+
+function is_enabled_for_post( int|WP_Post $post ): bool {
+    $post_id = is_a( $post, 'WP_Post' ) ? $post->ID : $post;
+    $is_enabled = get_post_meta( $post_id, '_sppp_enabled', true );
+    return filter_var( $is_enabled, FILTER_VALIDATE_BOOLEAN );
+}
+
+function get_key_for_post( int|WP_Post $post ): ?string {
+    $post_id = is_a( $post, 'WP_Post' ) ? $post->ID : $post;
+    $value = get_post_meta( $post_id, '_sppp_key', true );
+    return is_string( $value ) && ! empty( $value ) ? $value : null;
 }

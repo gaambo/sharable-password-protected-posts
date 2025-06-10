@@ -8,6 +8,11 @@
             "Private_Post_Share\\": "includes/classes/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Fabian Todt",
@@ -32,6 +37,57 @@
         "phpstan": "vendor/bin/phpstan analyze --memory-limit 1G",
         "lint": "find . -name '*.php' -not -path './.ddev/*' -not -path './vendor/*' -not -path './node_modules/*' -not -path './wordpress/*' -not -path './dependencies/*' -exec php -l '{}' \\;",
         "plugin-check": "wp plugin check sharable-password-protected-posts --categories=general,security,performance --exclude-directories=.ddev,dependencies,vendor,wordpress,node_modules --exclude-files=.gitignore,.env,.distignore,.env.example,src/.gitkeep,phpstan.neon.dist,phpcs.xml.dist",
+        "codecept": "vendor/bin/codecept",
+        "code-quality": [
+            "@lint",
+            "@phpcs",
+            "@phpstan"
+        ],
+        "tests:unit": [
+            "codecept clean",
+            "codecept run Unit"
+        ],
+        "tests:unit:coverage": [
+            "codecept run Unit --coverage=coverage-unit.cov"
+        ],
+        "tests:integration": [
+            "codecept clean",
+            "codecept run Integration"
+        ],
+        "tests:integration:coverage": [
+            "codecept run Integration --coverage=coverage-integration.cov"
+        ],
+        "tests:functional": [
+            "codecept clean",
+            "codecept run Functional"
+        ],
+        "tests:functional:coverage": [
+            "codecept run Functional --coverage=coverage-functional.cov"
+        ],
+        "tests:acceptance": [
+            "codecept clean",
+            "codecept run Acceptance"
+        ],
+        "tests": [
+            "@tests:unit",
+            "@tests:integration",
+            "@tests:functional",
+            "@tests:acceptance"
+        ],
+        "tests:coverage": [
+            "codecept clean",
+            "@tests:unit:coverage",
+            "@tests:integration:coverage",
+            "phpcov merge tests/_output --html tests/_output/coverage-html"
+        ],
+        "tests:fast": [
+            "@tests:unit",
+            "@tests:integration"
+        ],
+        "tests:slow": [
+            "@tests:functional",
+            "@tests:acceptance"
+        ],
         "plugin-zip": [
             "wp dist-archive . ./ --force --plugin-dirname=sharable-password-protected-posts"
         ],
@@ -39,11 +95,6 @@
             "wp i18n make-pot . ./languages/sharable-password-protected-posts.pot --exclude=dependencies,vendor,wordpress,node_modules",
             "wp i18n make-mo languages",
             "wp i18n make-php languages"
-        ],
-        "code-quality": [
-            "@lint",
-            "@phpcs",
-            "@phpstan"
         ],
         "build": [
             "@composer install --no-dev --no-scripts",
