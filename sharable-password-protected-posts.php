@@ -73,7 +73,7 @@ add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\add_editor_assets' 
  */
 function register_meta(): void {
     $enabled_meta_field = [
-        // 'show_in_rest' => false, // Add a custom rest field to better check permissions.
+        // 'show_in_rest' => true, // Add a custom schema to better check permissions.
         'show_in_rest' => [
             'schema' => [
                 'context' => [ 'edit' ],
@@ -84,7 +84,7 @@ function register_meta(): void {
                 $post_id = $post ? $post->ID : $request['id'];
 
                 $allowed = $post_id ? current_user_can( 'publish_posts', $post_id ) : current_user_can( 'publish_posts' );
-                return $allowed ? $value : null;
+                return $allowed ? filter_var( $value, FILTER_VALIDATE_BOOLEAN ) : null;
             },
         ],
         'single' => true,
@@ -107,7 +107,7 @@ function register_meta(): void {
     ];
 
     $key_meta_field = [
-        // 'show_in_rest' => false, // Add a custom rest field to better check permissions.
+        // 'show_in_rest' => true, // Add a custom schema to better check permissions.
         'show_in_rest' => [
             'schema' => [
 				'type' => 'string',
@@ -119,7 +119,7 @@ function register_meta(): void {
                 $post_id = $post ? $post->ID : $request['id'];
 
                 $allowed = $post_id ? current_user_can( 'publish_posts', $post_id ) : current_user_can( 'publish_posts' );
-                return $allowed ? $value : null;
+                return $allowed ? (string) $value : null;
             },
         ],
         'single' => true,
