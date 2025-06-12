@@ -5,7 +5,7 @@
  * Description:       Share password protected posts via secret URLs
  * Requires at least: 6.0
  * Requires PHP:      7.4
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            Fabian Todt
  * Author URI:        https://fabiantodt.at/en/
  * License:           GPL-2.0-or-later
@@ -83,7 +83,20 @@ add_action('init', __NAMESPACE__ . '\loadLanguages');
 function registerMeta()
 {
     $enabledMetaField = [
-        'show_in_rest' => true,
+        'show_in_rest' => [
+            'schema' => [
+                'context' => ['edit'] // Only show when editing.
+            ],
+            // Additionally, hide value when user is not allowed to edit the post.
+            'prepare_callback' => function ($value, $request, $args) {
+                global $post;
+                // WP_REST_Posts_Controller set global post instance.
+                $postId = $post ? $post->ID : $request['id'];
+
+                $allowed = $postId ? current_user_can('edit_post', $postId) : current_user_can('edit_posts');
+                return $allowed ? $value : null;
+            }
+        ],
         'single' => true,
         'type' => 'boolean',
         'default' => false,
@@ -100,11 +113,24 @@ function registerMeta()
                 $value = false;
             }
             return $value;
-        }
+        },
     ];
 
     $keyMetaField = [
-        'show_in_rest' => true,
+        'show_in_rest' => [
+            'schema' => [
+                'context' => ['edit'] // Only show when editing.
+            ],
+            // Additionally, hide value when user is not allowed to edit the post.
+            'prepare_callback' => function ($value, $request, $args) {
+                global $post;
+                // WP_REST_Posts_Controller set global post instance.
+                $postId = $post ? $post->ID : $request['id'];
+
+                $allowed = $postId ? current_user_can('edit_post', $postId) : current_user_can('edit_posts');
+                return $allowed ? $value : null;
+            }
+        ],
         'single' => true,
         'type' => 'string',
         'default' => '',
