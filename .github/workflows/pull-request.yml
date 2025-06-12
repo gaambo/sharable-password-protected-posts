@@ -1,4 +1,4 @@
-name: Plugin ZIP
+name: PR Automation
 
 on:
     pull_request:

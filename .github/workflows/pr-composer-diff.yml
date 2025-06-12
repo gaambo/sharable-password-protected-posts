@@ -1,4 +1,4 @@
-name: Composer Diff
+name: PR Composer Diff
 on:
     pull_request:
         paths:

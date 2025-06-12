@@ -1,4 +1,4 @@
-name: NPM Lockfile Changes
+name: PR NPM Diff
 on:
     pull_request:
         paths:

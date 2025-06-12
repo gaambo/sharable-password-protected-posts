@@ -1,4 +1,4 @@
-name: Lint PHP
+name: PHP Code Quality
 
 on:
     # Run on all relevant pushes and on all relevant pull requests.
