@@ -1,5 +1,5 @@
-import { useSelect } from "@wordpress/data";
 import { store as coreStore } from "@wordpress/core-data";
+import { useSelect } from "@wordpress/data";
 import { store as editorStore } from "@wordpress/editor";
 
 /**

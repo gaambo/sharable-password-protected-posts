@@ -1,10 +1,10 @@
-import { Component } from "@wordpress/element";
-import { safeDecodeURIComponent, addQueryArgs } from "@wordpress/url";
-import { TextControl, Button, Flex } from "@wordpress/components";
-import { withSelect } from "@wordpress/data";
+import { Button, Flex, TextControl } from "@wordpress/components";
 import { useCopyToClipboard } from "@wordpress/compose";
+import { withSelect } from "@wordpress/data";
 import { store as editorStore } from "@wordpress/editor";
+import { Component } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import { addQueryArgs, safeDecodeURIComponent } from "@wordpress/url";
 
 import CONSTANTS from "./constants";
 

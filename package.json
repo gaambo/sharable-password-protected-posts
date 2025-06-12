@@ -4,7 +4,7 @@
     "description": "Share password protected posts via secret URLs",
     "authors": [
         {
-            "name": "Fabian Todt",
+            "name": "Fabian Todt (gaambo)",
             "homepage": "https://fabiantodt.at",
             "role": "Developer"
         }
@@ -22,16 +22,18 @@
         "start": "wp-scripts start"
     },
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.23.0",
-        "@wordpress/scripts": "^30.16.0"
+        "@wordpress/prettier-config": "^4.25.0",
+        "@wordpress/scripts": "^30.18.0"
     },
     "dependencies": {
-        "@wordpress/api-fetch": "^7.23.0",
         "@wordpress/components": "^29.11.0",
+        "@wordpress/compose": "^7.25.0",
+        "@wordpress/core-data": "^7.25.0",
         "@wordpress/data": "^10.25.0",
-        "@wordpress/edit-post": "^8.25.0",
         "@wordpress/editor": "^14.25.0",
+        "@wordpress/element": "^6.25.0",
         "@wordpress/i18n": "^5.25.0",
-        "@wordpress/plugins": "^7.25.0"
+        "@wordpress/plugins": "^7.25.0",
+        "@wordpress/url": "^4.25.0"
     }
 }
