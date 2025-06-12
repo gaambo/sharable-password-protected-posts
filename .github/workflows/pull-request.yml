@@ -23,6 +23,7 @@ jobs:
               uses: actions/checkout@v3
             # Build Plugin ZIP
             - name: Build Plugin ZIP
+              id: build-zip
               uses: ./.github/actions/build-plugin
             # Upload ZIP as PR artifact
             - name: Upload Plugin ZIP (PR)
