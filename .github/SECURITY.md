@@ -42,4 +42,4 @@ Past security advisories, if any, are listed below.
 
 | Advisory Number | Type | Versions affected | Reported by | Additional Information                                                      |
 |-----------------|------|:-----------------:|-------------|-----------------------------------------------------------------------------|
-| -               | -    |      <1.1.1       | WPScan      | - The secret key could be exposed via REST API for passwort protected posts |
+| -               | -    |      <1.1.1       | WPScan      | - The secret key could be exposed via REST API |

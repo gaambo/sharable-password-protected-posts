@@ -24,8 +24,6 @@ jobs:
             # Build Plugin ZIP
             - name: Build Plugin ZIP
               uses: ./.github/actions/build-plugin
-              with:
-                  composer-token: ${{ secrets.GOODWP_COMPOSER_PAT }}
             # Upload ZIP as PR artifact
             - name: Upload Plugin ZIP (PR)
               id: upload-artifacts
@@ -43,5 +41,9 @@ jobs:
                   header: plugin-zip # Used to identify this sticky comment.
                   message: |
                       🎉 The plugin ZIP is ready for testing!
+                      ⬇️ **Download the ZIP file**
                       [Download the latest ZIP file](${{ steps.upload-artifacts.outputs.artifact-url }})
                       _NOTE:_ The Plugin-ZIP is file is in the Artifact-ZIP file you download. Extract it once.
+                      ▶️ **Test on Playground**
+                      [Test this pull request on the Playground](https://playground.wordpress.net/#{"preferredVersions":{"php":"8.3","wp":"6.8"},"landingPage":"/wp-admin/edit.php","features":{"networking":true},"steps":[{"step":"defineWpConfigConsts","consts":{"IS_PLAYGROUND_PREVIEW":true}},{"step":"login","username":"admin","password":"password"},{"step":"installPlugin","pluginData":{"resource":"url","url":"https://github-proxy.com/proxy/?repo=${{ github.repository }}&commit=${{ github.sha }}"},"options":{"activate":true}},{"step":"importWxr","file":{"resource":"url","url":"https://raw.githubusercontent.com/gaambo/sharable-password-protected-posts/main/.wordpress-org/blueprints/demo-content.xml"}}]}).
+
