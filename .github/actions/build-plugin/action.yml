@@ -40,8 +40,6 @@ runs:
         # @link https://github.com/marketplace/actions/install-composer-dependencies
         - name: Install Composer dependencies
           uses: ramsey/composer-install@v3
-          env:
-              COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ inputs.composer-token }}"}}'
           with:
               # Bust the cache at least once a month - output format: YYYY-MM-DD.
               custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
