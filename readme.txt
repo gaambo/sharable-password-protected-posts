@@ -57,7 +57,7 @@ e.g.
 - The link will be displayed if the checkbox is checked, just copy and share the link.
 - To disable just uncheck the box.
 
-By default it's enabled for all public post types, but that can be changed via the `private_post_share/post_types` filter.
+By default, it's enabled for all public post types, but that can be changed via the `private_post_share/post_types` filter.
 
 == Frequently Asked Questions ==
 
@@ -92,7 +92,7 @@ The old name was `Sharable Password Protected Posts` and the new name is `Privat
     * All hooks are prefixed with `private_post_share/`
     * Meta keys and query var stay the same `_spp` prefix for backwards compatibility
     * Plugin slug and textdomain stays `sharable-password-protected-posts` (for WP.org repository)
-* Breaking: Update required PHP version to 8.2 and WP 6.7
+* Breaking: Update required PHP version to 8.1 and WP 6.7
 * Dev: Add code quality tools and GitHub Actions for them
 * Dev: Add automated tests via Codeception
 

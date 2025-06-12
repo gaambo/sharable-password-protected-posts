@@ -3,7 +3,7 @@
  * Plugin Name:       Private Post Share
  * Description:       Share password protected posts via secret URLs
  * Requires at least: 6.7
- * Requires PHP:      8.2
+ * Requires PHP:      8.1
  * Version:           2.0.0
  * Author:            Fabian Todt
  * Author URI:        https://fabiantodt.at/
