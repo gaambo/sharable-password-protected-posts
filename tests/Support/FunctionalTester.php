@@ -27,48 +27,6 @@ class FunctionalTester extends \Codeception\Actor {
 
     use _generated\FunctionalTesterActions;
 
-    /**
-     * Define custom actions here
-     */
-    public function havePasswordProtectedPostInDatabase( array $overrides, string $password = 'password' ): int {
-        $post_id = $this->havePostInDatabase(
-            array_merge(
-                [
-                    'post_status' => 'publish',
-                    'post_password' => $password,
-                ],
-                $overrides
-            )
-        );
-        return $post_id;
-    }
-
-    public function havePrivatePostInDatabase( array $overrides ): int {
-        $post_id = $this->havePostInDatabase(
-            array_merge(
-                [
-                    'post_status' => 'private',
-                ],
-                $overrides
-            )
-        );
-        return $post_id;
-    }
-
-    public function havePasswordProtectedPostWithSharableLinkInDatabase( array $overrides, string $password = 'password' ): int {
-        $post_id = $this->havePasswordProtectedPostInDatabase( $overrides, $password );
-        $this->havePostmetaInDatabase( $post_id, '_sppp_enabled', 1 );
-        $this->havePostmetaInDatabase( $post_id, '_sppp_key', generate_key() );
-        return $post_id;
-    }
-
-    public function havePrivatePostWithSharableLinkInDatabase( array $overrides ): int {
-        $post_id = $this->havePrivatePostInDatabase( $overrides );
-        $this->havePostmetaInDatabase( $post_id, '_sppp_enabled', 1 );
-        $this->havePostmetaInDatabase( $post_id, '_sppp_key', generate_key() );
-        return $post_id;
-    }
-
     public function haveEditorUserInDatabase( string $user_login = 'editor', string $password = 'password' ): array {
         $this->haveUserInDatabase(
             $user_login,

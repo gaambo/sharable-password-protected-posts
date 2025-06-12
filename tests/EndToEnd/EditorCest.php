@@ -38,7 +38,6 @@ final class EditorCest {
 
         // Save
         $I->savePostInEditor();
-        $I->wait( 5 );
 
         $I->logOut();
 
@@ -74,7 +73,6 @@ final class EditorCest {
 
         // Save
         $I->savePostInEditor();
-        $I->wait( 5 );
 
         $I->logOut();
 
@@ -123,5 +121,65 @@ final class EditorCest {
         // See PPS settings
         $I->dontSee( 'Share post via secret URL' );
         $I->dontSeeElement( '.private-post-share .private-post-share__link' );
+    }
+
+    public function try_disabling_sharable_link_from_private_post_removes_meta( EndToEndTester $I ): void {
+        $pageId = $I->havePrivatePostWithSharableLinkInDatabase(
+            [
+                'post_title' => 'Super secret page',
+            ]
+        );
+
+        $I->loginAsAdmin();
+        $I->amEditingPostWithId( $pageId );
+        // $I->wait(5);
+        $I->hideEditorModals();
+
+        // See PPS settings
+        $I->see( 'Share post via secret URL' );
+        $I->seeElement( '.private-post-share .private-post-share__link' );
+        $I->uncheckOption( '.private-post-share__checkbox input[type="checkbox"]' );
+        $I->dontSeeElement( '.private-post-share .private-post-share__link' );
+
+        // Save
+        $I->savePostInEditor();
+
+        $this->assertMetaEnabled($I, $pageId, false);
+        $this->assertMetaKey($I, $pageId, '');
+    }
+
+    public function try_disabling_sharable_link_from_password_protected_post_removes_meta( EndToEndTester $I ): void {
+        $pageId = $I->havePasswordProtectedPostWithSharableLinkInDatabase(
+            [
+                'post_title' => 'Super secret page',
+            ]
+        );
+
+        $I->loginAsAdmin();
+        $I->amEditingPostWithId( $pageId );
+        // $I->wait(5);
+        $I->hideEditorModals();
+
+        // See PPS settings
+        $I->see( 'Share post via secret URL' );
+        $I->seeElement( '.private-post-share .private-post-share__link' );
+        $I->uncheckOption( '.private-post-share__checkbox input[type="checkbox"]' );
+        $I->dontSeeElement( '.private-post-share .private-post-share__link' );
+
+        // Save
+        $I->savePostInEditor();
+
+        $this->assertMetaEnabled($I, $pageId, false);
+        $this->assertMetaKey($I, $pageId, '');
+    }
+
+    private function assertMetaEnabled(EndToEndTester $I, int $post_id, bool $enabled = true): void {
+        $meta_value = $I->grabPostMetaFromDatabase($post_id, '_sppp_enabled', true);
+        $I->assertEquals($enabled, filter_var($meta_value, FILTER_VALIDATE_BOOLEAN));
+    }
+
+    private function assertMetaKey(EndToEndTester $I, int $post_id, string $key): void {
+        $meta_value = $I->grabPostMetaFromDatabase($post_id, '_sppp_key', true);
+        $I->assertEquals($key, $meta_value);
     }
 }

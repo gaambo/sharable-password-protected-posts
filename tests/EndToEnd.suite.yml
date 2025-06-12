@@ -10,6 +10,9 @@ modules:
         - lucatume\WPBrowser\Module\WPDb
         - lucatume\WPBrowser\Module\WPFilesystem
         - lucatume\WPBrowser\Module\WPLoader
+        - Asserts
+        - Tests\Support\Helper\RestApiHelper
+        - Tests\Support\Helper\PostHelper
         - Tests\Support\Helper\EditorHelper
     config:
         lucatume\WPBrowser\Module\WPWebDriver:

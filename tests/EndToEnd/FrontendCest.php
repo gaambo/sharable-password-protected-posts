@@ -55,6 +55,18 @@ final class FrontendCest {
         $I->see( 'Private Post' );
     }
 
+    public function try_viewing_private_post_with_sharable_link_but_empty_key( EndToEndTester $I ): void {
+        $post_id = $I->havePrivatePostWithSharableLinkInDatabase(
+            [
+                'post_title' => 'Private Post',
+            ]
+        );
+        $I->updatePostMetaInDatabase( $post_id, '_sppp_key', '' );
+        $I->amOnSharableLink( $post_id );
+        $I->dontSee( 'Private Post' );
+        $I->seePrivatePostForbidden();
+    }
+
     public function try_viewing_private_post_with_sharable_link_as_editor( EndToEndTester $I ): void {
         $post_id = $I->havePrivatePostWithSharableLinkInDatabase(
             [
@@ -127,5 +139,19 @@ final class FrontendCest {
         $I->amOnSharableLink( $post_id );
         $I->see( 'Password Protected Post' );
         $I->see( 'private content' );
+    }
+
+    public function try_viewing_password_protected_post_with_sharable_link_but_empty_key( EndToEndTester $I ): void {
+        $post_id = $I->havePasswordProtectedPostInDatabase(
+            [
+                'post_title' => 'Password Protected Post',
+                'post_content' => 'private content',
+            ]
+        );
+        $I->updatePostMetaInDatabase( $post_id, '_sppp_key', '' );
+        $I->amOnPage( '/?p=' . $post_id );
+        $I->see( 'Protected: Password Protected Post' );
+        $I->dontSee( 'private content' );
+        $I->seePasswordProtectedPostForm();
     }
 }

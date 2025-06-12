@@ -28,8 +28,9 @@ class EditorHelper extends \Codeception\Module {
     public function savePostInEditor(): void {
         $I = $this->getModule( WebDriver::class );
         $I->click( '.editor-post-publish-button__button' );
-        // $this->click(".edit-post-header__settings .editor-post-publish-button__button");
-        // $this->click(".editor-post-publish-panel .editor-post-publish-button__button");
+        // $I->waitForText('Post updated');
+        $I->wait(3); // wait for 3 secs
+
     }
 
     public function setPostStatus( string $status ): void {

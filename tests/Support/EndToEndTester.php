@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Support;
 
-use Exception;
-use function Private_Post_Share\generate_key;
+use Tests\Support\Helper\PostHelper;
 
 /**
  * Inherited Methods
@@ -26,45 +25,6 @@ use function Private_Post_Share\generate_key;
 class EndToEndTester extends \Codeception\Actor {
 
     use _generated\EndToEndTesterActions;
-
-    public function havePasswordProtectedPostInDatabase( array $overrides, string $password = 'password' ): int {
-        $post_id = $this->havePostInDatabase(
-            array_merge(
-                [
-					'post_status' => 'publish',
-					'post_password' => $password,
-				],
-                $overrides
-            )
-        );
-        return $post_id;
-    }
-
-    public function havePrivatePostInDatabase( array $overrides ): int {
-        $post_id = $this->havePostInDatabase(
-            array_merge(
-                [
-					'post_status' => 'private',
-				],
-                $overrides
-            )
-        );
-        return $post_id;
-    }
-
-    public function havePasswordProtectedPostWithSharableLinkInDatabase( array $overrides, string $password = 'password' ): int {
-        $post_id = $this->havePasswordProtectedPostInDatabase( $overrides, $password );
-        $this->havePostmetaInDatabase( $post_id, '_sppp_enabled', 1 );
-        $this->havePostmetaInDatabase( $post_id, '_sppp_key', generate_key() );
-        return $post_id;
-    }
-
-    public function havePrivatePostWithSharableLinkInDatabase( array $overrides ): int {
-        $post_id = $this->havePrivatePostInDatabase( $overrides );
-        $this->havePostmetaInDatabase( $post_id, '_sppp_enabled', 1 );
-        $this->havePostmetaInDatabase( $post_id, '_sppp_key', generate_key() );
-        return $post_id;
-    }
 
     public function haveEditorUserInDatabase( string $user_login = 'editor', string $password = 'password' ): array {
         $this->haveUserInDatabase(
@@ -93,10 +53,6 @@ class EndToEndTester extends \Codeception\Actor {
     public function fillPasswordProtectedPostForm( string $password = 'password' ): void {
         $this->fillField( 'post_password', $password );
         $this->click( 'Enter' );
-    }
-
-    public function grabSecretKeyFromDatabase( int $post_id ): string {
-        return $this->grabPostmetaFromDatabase( $post_id, '_sppp_key', true );
     }
 
     public function amOnSharableLink( int $post_id ): void {
