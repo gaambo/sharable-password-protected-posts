@@ -1,32 +1,37 @@
 {
-  "name": "sharable-password-protected-posts",
-  "version": "1.1.1",
-  "description": "Share password protected posts via secret URLs",
-  "author": "gaambo",
-  "license": "GPL-2.0-or-later",
-  "main": "build/index.js",
-  "scripts": {
-    "build": "wp-scripts build",
-    "packages-update": "wp-scripts packages-update",
-    "plugin-zip": "wp-scripts plugin-zip",
-    "start": "wp-scripts start",
-    "env:start": "wp-env start",
-    "env:start:debug": "wp-env start --xdebug",
-    "env:stop": "wp-env stop",
-    "i18n": "npm run i18n:pot && npm run i18n:php",
-    "i18n:pot": "wp-env run cli wp i18n make-pot wp-content/plugins/sharable-password-protected-posts wp-content/plugins/sharable-password-protected-posts/languages/good-slider.pot --exclude=\"build\" --domain=good-slider",
-    "i18n:php": "wp-env run cli wp i18n make-php wp-content/plugins/sharable-password-protected-posts/languages"
-  },
-  "devDependencies": {
-    "@wordpress/env": "^9.7.0",
-    "@wordpress/scripts": "^27.6.0"
-  },
-  "dependencies": {
-    "@wordpress/components": "^27.3.0",
-    "@wordpress/data": "^9.25.0",
-    "@wordpress/edit-post": "^7.32.0",
-    "@wordpress/editor": "^13.32.0",
-    "@wordpress/i18n": "^4.55.0",
-    "@wordpress/plugins": "^6.23.0"
-  }
+    "name": "sharable-password-protected-posts",
+    "version": "2.0.0",
+    "description": "Share password protected posts via secret URLs",
+    "authors": [
+        {
+            "name": "Fabian Todt",
+            "homepage": "https://fabiantodt.at",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/github/sharable-password-protected-posts",
+    "license": "GPL-2.0-or-later",
+    "main": "build/index.js",
+    "scripts": {
+        "build": "wp-scripts build",
+        "format": "wp-scripts format ./src",
+        "lint:css": "wp-scripts lint-style ./src",
+        "lint:js": "wp-scripts lint-js ./src",
+        "packages-update": "wp-scripts packages-update",
+        "plugin-zip": "wp-scripts plugin-zip",
+        "start": "wp-scripts start"
+    },
+    "devDependencies": {
+        "@wordpress/prettier-config": "^4.23.0",
+        "@wordpress/scripts": "^30.16.0"
+    },
+    "dependencies": {
+        "@wordpress/api-fetch": "^7.23.0",
+        "@wordpress/components": "^29.11.0",
+        "@wordpress/data": "^10.25.0",
+        "@wordpress/edit-post": "^8.25.0",
+        "@wordpress/editor": "^14.25.0",
+        "@wordpress/i18n": "^5.25.0",
+        "@wordpress/plugins": "^7.25.0"
+    }
 }

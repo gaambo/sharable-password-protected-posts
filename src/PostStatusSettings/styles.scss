@@ -1,8 +1,8 @@
-.components-panel__row.sppp {
+.components-panel__row.private-post-share {
     flex-direction: column;
     align-items: flex-start;
 
-    .sppp__link-copy {
+    .private-post-share__link-copy {
         display: flex;
         align-items: flex-end;
         margin-bottom: 16px 0; // $grid-unit-20
@@ -10,7 +10,7 @@
             margin-bottom: 0;
         }
 
-        .sppp__link-field {
+        .private-post-share__link-field {
             flex: 1;
         }
 
@@ -21,7 +21,7 @@
             text-overflow: ellipsis;
         }
 
-        .sppp__copy-button {
+        .private-post-share__copy-button {
             flex-shrink: 0;
             margin-left: 8px; // margin left for copy button
 

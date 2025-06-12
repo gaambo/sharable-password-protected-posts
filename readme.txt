@@ -1,9 +1,9 @@
 === Sharable Password Protected Posts ===
 Contributors:      gaambo
 Tags:              password protected, secret links, share private
-Requires at least: 6.0
+Requires at least: 6.7
 Tested up to:      6.8
-Stable tag:        1.1.1
+Stable tag:        2.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,6 +14,8 @@ Share password protected posts via secret URLs
 Share a link to anonymous users to view private and password protected posts (or any other public post type).
 
 This plugin generates secret URLs (similar to Google Docs and other cloud services) for posts so you can share them with not-logged in users without having to share an extra password with them.
+
+For bug reports, security vulnerabilities, feature requests please visit the [GitHub repository](https://github.com/gaambo/sharable-password-protected-posts).
 
 == Installation ==
 
@@ -55,7 +57,7 @@ e.g.
 - The link will be displayed if the checkbox is checked, just copy and share the link.
 - To disable just uncheck the box.
 
-By default it's enabled for all public post types, but that can be changed via the `sppp/postTypes` filter.
+By default it's enabled for all public post types, but that can be changed via the `private_post_share/post_types` filter.
 
 == Frequently Asked Questions ==
 
@@ -73,13 +75,29 @@ The editor has to have the `publish_posts` capability.
 
 = Can I use it for custom post types? =
 
-Yes, by default all public post types are enabled. You can filter them with the `sppp/postTypes` filter.
+Yes, by default all public post types are enabled. You can filter them with the `private_post_share/post_types` filter.
 
 == Changelog ==
 
+= 2.0.0 (2025-06-10): New Name & Structure =
+This is a major release with breaking changes.
+These breaking changes are only important for developers extending this plugin or using the plugins functions.
+**If you are just using the plugin, you are fine and nothing will change for you.**
+
+The old plugins name was a mouth full, so we changed it to better reflect what it does.
+The old name was `Sharable Password Protected Posts` and the new name is `Private Post Share`.
+
+* Breaking: New plugin structure and namespace
+    * The plugin has been moved to a new namespace called `Private_Post_Share`
+    * All hooks are prefixed with `private_post_share/`
+    * Meta keys and query var stay the same `_spp` prefix for backwards compatibility
+    * Plugin slug and textdomain stays `sharable-password-protected-posts` (for WP.org repository)
+* Breaking: Update required PHP version to 8.2 and WP 6.7
+* Dev: Add code quality tools and GitHub Actions for them
+* Dev: Add automated tests via Codeception
+
 = 1.1.1 (2025-06-11): =
-**IMPORTANT SECURITY FIX**
-* Security: Secret key could be exposed via REST API. Thanks to WPScan for the report and disclosure.
+* Security: Secret Key could be exposed via REST API for password protected posts. Thanks to WPScan for the report and disclosure.
 
 = 1.1.0 (2024-09-02): =
 * Add WordPress 6.6 compatibility
