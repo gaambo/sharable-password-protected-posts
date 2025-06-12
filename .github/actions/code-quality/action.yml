@@ -11,7 +11,7 @@ runs:
         -   name: Install PHP for the composer install
             uses: shivammathur/setup-php@v2
             with:
-                php-version: "8.2"
+                php-version: "8.3"
                 coverage: none
 
         # Validate the composer.json file.
