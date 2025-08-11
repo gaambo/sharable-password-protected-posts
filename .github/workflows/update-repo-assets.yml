@@ -1,4 +1,4 @@
-name: Plugin WordPress.org asset/readme update
+name: Deploy WordPress.org asset/readme changes
 on:
     workflow_dispatch:
     push:

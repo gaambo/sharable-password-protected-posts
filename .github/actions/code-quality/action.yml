@@ -1,0 +1,61 @@
+name: Code Quality
+description: Run PHP linting, PHPCS and PHPStan
+inputs:
+    php-version:
+        description: PHP Version to run checks in
+        required: true
+runs:
+    using: "composite"
+    steps:
+        # Install PHP version for base dev env setup.
+        -   name: Install PHP for the composer install
+            uses: shivammathur/setup-php@v2
+            with:
+                php-version: "8.3"
+                coverage: none
+
+        # Validate the composer.json file.
+        # @link https://getcomposer.org/doc/03-cli.md#validate
+        -   name: Validate Composer installation
+            run: composer validate --no-check-all
+            shell: bash # required for composite actions
+
+        # Install dependencies and handle caching in one go.
+        # @link https://github.com/marketplace/actions/install-composer-dependencies
+        -   name: Install Composer dependencies
+            uses: ramsey/composer-install@v3
+            with:
+                composer-options: "--ignore-platform-reqs"
+                # Bust the cache at least once a month - output format: YYYY-MM-DD.
+                custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+
+        -   name: Install PHP for the actual test
+            uses: shivammathur/setup-php@v2
+            with:
+                php-version: ${{ inputs.php_version }}
+                ini-values: zend.assertions=1, error_reporting=-1, display_errors=On
+                coverage: none
+                tools: cs2pr
+
+        -   name: Lint against parse errors
+            run: composer run-script lint
+            shell: bash # required for composite actions
+
+        # Check the CodeStyle of the files.
+        # The results of the CS check will be shown inline in the PR via the CS2PR tool.
+        # @link https://github.com/staabm/annotate-pull-request-from-checkstyle/
+        -   name: Check PHP code style
+            id: phpcs
+            run: composer run-script phpcs -- --no-cache --report-full --report-checkstyle=./phpcs-report.xml
+            shell: bash # required for composite actions
+
+        -   name: Show PHPCS results in PR
+            if: ${{ always() && steps.phpcs.outcome == 'failure' }}
+            run: cs2pr ./phpcs-report.xml
+            shell: bash # required for composite actions
+
+        # Check the PHPStan of the files.
+        -   name: Check PHPStan
+            id: phpstan
+            run: composer run-script phpstan -- --error-format=checkstyle | cs2pr
+            shell: bash # required for composite actions

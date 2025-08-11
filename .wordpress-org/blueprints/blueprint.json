@@ -1,45 +1,45 @@
 {
-  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
-  "preferredVersions": {
-    "php": "8.2",
-    "wp": "6.8"
-  },
-  "features": {
-    "networking": true
-  },
-  "phpExtensionBundles": ["kitchen-sink"],
-  "landingPage": "/wp-admin/post.php?post=9&action=edit",
-  "steps": [
-    {
-      "step": "login",
-      "username": "admin",
-      "password": "password"
+    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+    "preferredVersions": {
+        "php": "8.2",
+        "wp": "6.8"
     },
-    {
-      "step": "setSiteOptions",
-      "options": {
-        "blogname": "Sharable Password Protected Posts Demo",
-        "blog_charset": "UTF-8",
-        "template": "twentytwentyfive",
-        "stylesheet": "twentytwentyfive"
-      }
+    "features": {
+        "networking": true
     },
-    {
-      "step": "installPlugin",
-      "pluginData": {
-        "resource": "wordpress.org/plugins",
-        "slug": "sharable-password-protected-posts"
-      },
-      "options": {
-        "activate": true
-      }
-    },
-    {
-      "step": "importWxr",
-      "file": {
-        "resource": "url",
-        "url": "https://raw.githubusercontent.com/gaambo/sharable-password-protected-posts/main/.wordpress-org/blueprints/demo-content.xml"
-      }
-    }
-  ]
+    "phpExtensionBundles": ["kitchen-sink"],
+    "landingPage": "/wp-admin/post.php?post=9&action=edit",
+    "steps": [
+        {
+            "step": "login",
+            "username": "admin",
+            "password": "password"
+        },
+        {
+            "step": "setSiteOptions",
+            "options": {
+                "blogname": "Sharable Password Protected Posts Demo",
+                "blog_charset": "UTF-8",
+                "template": "twentytwentyfive",
+                "stylesheet": "twentytwentyfive"
+            }
+        },
+        {
+            "step": "installPlugin",
+            "pluginData": {
+                "resource": "wordpress.org/plugins",
+                "slug": "sharable-password-protected-posts"
+            },
+            "options": {
+                "activate": true
+            }
+        },
+        {
+            "step": "importWxr",
+            "file": {
+                "resource": "url",
+                "url": "https://raw.githubusercontent.com/gaambo/sharable-password-protected-posts/main/.wordpress-org/blueprints/demo-content.xml"
+            }
+        }
+    ]
 }
