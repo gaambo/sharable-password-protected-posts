@@ -230,9 +230,9 @@ final class RestApiCest {
         $I->seeResponseCodeIs( 200 );
         $response = $I->grabResponse();
         $I->assertArrayHasKey( 'meta', $response );
-        $I->assertArrayHasKey( '_sppp_enabeled', $response['meta'] );
+        $I->assertArrayHasKey( '_sppp_enabled', $response['meta'] );
         $I->assertArrayHasKey( '_sppp_key', $response['meta'] );
-        $I->assertTrue( $response['meta']['_sppp_enabeled'] );
+        $I->assertTrue( $response['meta']['_sppp_enabled'] );
         $I->assertEquals( $response['meta']['_sppp_key'], $key );
     }
 
@@ -262,9 +262,9 @@ final class RestApiCest {
     }
 
     /**
-     * Test that showing a private post that was (re-)published later in the rest api as an editor user with the context "edit" does not expose the key.
+     * Test that showing a private post that was (re-)published later in the rest api as an editor user with the context "edit" does keep the key.
      */
-    public function try_to_not_see_key_for_password_protected_post_in_authenticated_request_with_edit_context_after_it_was_republished( FunctionalTester $I ): void {
+    public function try_to_see_key_for_password_protected_post_in_authenticated_request_with_edit_context_after_it_was_republished( FunctionalTester $I ): void {
         $post_id = $I->havePasswordProtectedPostWithSharableLinkInDatabase(
             [
                 'post_title' => 'Password protected Post',
@@ -286,16 +286,16 @@ final class RestApiCest {
         $I->seeResponseCodeIs( 200 );
         $response = $I->grabResponse();
         $I->assertArrayHasKey( 'meta', $response );
-        $I->assertArrayNotHasKey( '_sppp_enabled', $response['meta'] );
+        $I->assertArrayHasKey( '_sppp_enabled', $response['meta'] );
         $I->assertTrue( $response['meta']['_sppp_enabled'] );
         $I->assertArrayHasKey( '_sppp_key', $response['meta'] );
         $I->assertEquals( $response['meta']['_sppp_key'], $key );
     }
 
     /**
-     * Test that showing a private post that was (re-)published later in the rest api as an editor user with the context "edit" does not expose the key.
+     * Test that showing a private post that was (re-)published later in the rest api as an editor user with the context "edit" does keep the key.
      */
-    public function try_to_not_see_key_for_private_post_in_authenticated_request_with_edit_context_after_it_was_republished( FunctionalTester $I ): void {
+    public function try_to_see_key_for_private_post_in_authenticated_request_with_edit_context_after_it_was_republished( FunctionalTester $I ): void {
         $post_id = $I->havePrivatePostWithSharableLinkInDatabase(
             [
                 'post_title' => 'Private Post',
