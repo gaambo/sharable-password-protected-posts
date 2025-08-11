@@ -1,4 +1,4 @@
-=== Sharable Password Protected Posts ===
+=== Private Post Share ===
 Contributors:      gaambo
 Tags:              password protected, secret links, share private
 Requires at least: 6.7
