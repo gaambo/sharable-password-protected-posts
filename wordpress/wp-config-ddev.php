@@ -20,7 +20,7 @@ if ( getenv( 'IS_DDEV_PROJECT' ) == 'true' ) {
 	defined( 'DB_HOST' ) || define( 'DB_HOST', 'ddev-private-post-share-db' );
 
 	/** WP_HOME URL */
-	defined( 'WP_HOME' ) || define( 'WP_HOME', $is_test_request ? 'http://test.private-post-share.dev.local' : 'https://private-post-share.dev.local' );
+	defined( 'WP_HOME' ) || define( 'WP_HOME', $is_test_request ? 'http://test.private-post-share.test' : 'https://private-post-share.test' );
 
 	/** WP_SITEURL location */
 	defined( 'WP_SITEURL' ) || define( 'WP_SITEURL', WP_HOME . '/' );

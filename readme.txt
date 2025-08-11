@@ -79,7 +79,7 @@ Yes, by default all public post types are enabled. You can filter them with the 
 
 == Changelog ==
 
-= 2.0.0 (2025-06-10): New Name & Structure =
+= 2.0.0 (2025-08-11): New Name & Structure =
 This is a major release with breaking changes.
 These breaking changes are only important for developers extending this plugin or using the plugins functions.
 **If you are just using the plugin, you are fine and nothing will change for you.**

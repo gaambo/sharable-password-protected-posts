@@ -12,10 +12,14 @@
 .idea
 .nvmrc
 .prettierrc.js
+.vscode
 .wordpress-org
+.wp-env.json
 README.md
 auth.json
 auth.json.example
+CHANGELOG.md
+codeception.yml
 composer.json
 composer.lock
 dependencies
@@ -27,6 +31,7 @@ phpcs.xml
 phpcs.xml.dist
 phpstan.neon
 phpstan.neon.dist
+tests
 vendor/bin
 webpack.config.js
 wordpress
