@@ -31,22 +31,26 @@ concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
 
+permissions:
+    contents: read
+
 jobs:
     lint:
+        name: "Lint: PHP ${{ matrix.php_version }}"
         runs-on: ubuntu-latest
-
+        permissions:
+            contents: read
         strategy:
             matrix:
-                php_version: ["8.1","8.2", "8.3", "8.4"]
-
-        name: "Lint: PHP ${{ matrix.php_version }}"
-
+                php_version: ["8.1", "8.2", "8.3", "8.4"]
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+            -   name: Checkout repository
+                uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+                with:
+                    # Do not store git credentials in .git -> could be leaked/exposed by infected/malicious action.
+                    persist-credentials: false
 
-            - name: Check Code Quality
-              uses: ./.github/actions/code-quality
-              with:
-                  php-version: ${{ matrix.php_version }}
-
+            -   name: Check Code Quality
+                uses: ./.github/actions/code-quality
+                with:
+                    php-version: ${{ matrix.php_version }}

@@ -10,41 +10,40 @@ concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
 
+permissions:
+    contents: read
+
 jobs:
     build:
+        name: Build Plugin ZIP
         runs-on: ubuntu-latest
-        # Required for sticky comment to work.
         permissions:
-            pull-requests: write
+            pull-requests: write # Required to post sticky comments on PRs
             contents: read
         steps:
-            # Checkout the code
-            - name: Checkout Code
-              uses: actions/checkout@v3
-            # Build Plugin ZIP
-            - name: Build Plugin ZIP
-              id: build-zip
-              uses: ./.github/actions/build-plugin
-            # Upload ZIP as PR artifact
-            - name: Upload Plugin ZIP (PR)
-              id: upload-artifacts
-              uses: actions/upload-artifact@v4
-              with:
-                  name: plugin.zip
-                  path: ${{ steps.build-zip.outputs.zip-file }}
+            -   name: Checkout Code
+                uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+                with:
+                    # Do not store git credentials in .git -> could be leaked/exposed by infected/malicious action.
+                    persist-credentials: false
+
+            -   name: Build Plugin ZIP
+                id: build-zip
+                uses: ./.github/actions/build-plugin
+
+            -   name: Upload Plugin ZIP (PR)
+                id: upload-artifacts
+                uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+                with:
+                    archive: false
+                    name: plugin.zip
+                    path: ${{ steps.build-zip.outputs.zip-file }}
 
             # Post sticky comment with a link to the ZIP in the PR
-            - name: Add Sticky Comment
-              uses: marocchino/sticky-pull-request-comment@v2
-              # ZIP-Archives are double-zipped
-              # https://github.com/actions/upload-artifact?tab=readme-ov-file#zip-archives
-              with:
-                  header: plugin-zip # Used to identify this sticky comment.
-                  message: |
-                      🎉 The plugin ZIP is ready for testing!
-                      ⬇️ **Download the ZIP file**
-                      [Download the latest ZIP file](${{ steps.upload-artifacts.outputs.artifact-url }})
-                      _NOTE:_ The Plugin-ZIP is file is in the Artifact-ZIP file you download. Extract it once.
-                      ▶️ **Test on Playground**
-                      [Test this pull request on the Playground](https://playground.wordpress.net/#{"preferredVersions":{"php":"8.3","wp":"6.8"},"landingPage":"/wp-admin/edit.php","features":{"networking":true},"steps":[{"step":"defineWpConfigConsts","consts":{"IS_PLAYGROUND_PREVIEW":true}},{"step":"login","username":"admin","password":"password"},{"step":"installPlugin","pluginData":{"resource":"url","url":"https://github-proxy.com/proxy/?repo=${{ github.repository }}&commit=${{ github.sha }}"},"options":{"activate":true}},{"step":"importWxr","file":{"resource":"url","url":"https://raw.githubusercontent.com/gaambo/sharable-password-protected-posts/main/.wordpress-org/blueprints/demo-content.xml"}}]}).
-
+            -   name: Add Sticky Comment
+                uses: marocchino/sticky-pull-request-comment@0ea0beb66eb9baf113663a64ec522f60e49231c0 # v3.0.4
+                with:
+                    header: plugin-zip # Used to identify this sticky comment.
+                    message: |
+                        🎉 The plugin ZIP is ready for testing!
+                        [Download the latest ZIP file](${{ steps.upload-artifacts.outputs.artifact-url }})

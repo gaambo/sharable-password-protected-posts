@@ -12,34 +12,38 @@ concurrency:
     group: ${{ github.workflow }}-${{ github.ref_name }}
     cancel-in-progress: true
 
+permissions:
+    contents: read
+
 jobs:
     build:
+        name: Build & Deploy
         runs-on: ubuntu-latest
-        # Required for sticky comment to work.
         permissions:
-            contents: write
+            contents: write # Required to upload assets to the GitHub release
         steps:
-            # Checkout the code
-            - name: Checkout Code
-              uses: actions/checkout@v3
-            # Build Plugin ZIP
-            - name: Build Plugin ZIP
-              id: build-zip
-              uses: ./.github/actions/build-plugin
+            -   name: Checkout Code
+                uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+                with:
+                    # Do not store git credentials in .git -> could be leaked/exposed by infected/malicious action.
+                    persist-credentials: false
+
+            -   name: Build Plugin ZIP
+                id: build-zip
+                uses: ./.github/actions/build-plugin
+
             # Attach dynamically found ZIP to Release
-            - name: Attach Plugin ZIP (Release)
-              uses: actions/upload-release-asset@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              with:
-                  upload_url: ${{ github.event.release.upload_url }}
-                  asset_path: ${{ steps.build-zip.outputs.zip-file }}
-                  asset_name: ${{ steps.build-zip.outputs.zip-file }}
-                  asset_content_type: application/zip
+            -   name: Attach Plugin ZIP (Release)
+                env:
+                    GH_TOKEN: ${{ github.token }}
+                    TAG_NAME: ${{ github.ref_name }}
+                    ZIP_FILE: ${{ steps.build-zip.outputs.zip-file }}
+                run: gh release upload "$TAG_NAME" "$ZIP_FILE"
+
             # Uses .distignore
             -   name: WordPress Plugin Deploy
                 id: deploy
-                uses: 10up/action-wordpress-plugin-deploy@1.5.0
+                uses: 10up/action-wordpress-plugin-deploy@0dc3f76f710b55cd07aa546a77bc103a0f1f2f7a # 1.5.0
                 env:
                     SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
                     SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}

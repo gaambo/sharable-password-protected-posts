@@ -9,7 +9,7 @@ runs:
     steps:
         # Install PHP version for base dev env setup.
         -   name: Install PHP for the composer install
-            uses: shivammathur/setup-php@v2
+            uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2.37.1
             with:
                 php-version: "8.3"
                 coverage: none
@@ -23,14 +23,14 @@ runs:
         # Install dependencies and handle caching in one go.
         # @link https://github.com/marketplace/actions/install-composer-dependencies
         -   name: Install Composer dependencies
-            uses: ramsey/composer-install@v3
+            uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # v4.0.0
             with:
                 composer-options: "--ignore-platform-reqs"
                 # Bust the cache at least once a month - output format: YYYY-MM-DD.
                 custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
 
         -   name: Install PHP for the actual test
-            uses: shivammathur/setup-php@v2
+            uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2.37.1
             with:
                 php-version: ${{ inputs.php_version }}
                 ini-values: zend.assertions=1, error_reporting=-1, display_errors=On
